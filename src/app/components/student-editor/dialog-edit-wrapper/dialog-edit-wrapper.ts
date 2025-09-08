@@ -1,4 +1,4 @@
-import {Component, Inject} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {
   MAT_DIALOG_DATA,
   MatDialogActions,
@@ -29,7 +29,7 @@ import {MatButton} from '@angular/material/button';
   styleUrl: './dialog-edit-wrapper.scss'
 })
 
-export class DialogEditWrapper {
+export class DialogEditWrapper implements OnInit{
 
   editingStudent: Student
 
@@ -37,6 +37,9 @@ export class DialogEditWrapper {
     @Inject(MAT_DIALOG_DATA) public data: Student)
   {
     this.editingStudent = new Student()
+  }
+
+  ngOnInit() {
   }
 
   onNoClick(){

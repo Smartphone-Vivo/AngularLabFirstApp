@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import {Student} from '../models/student';
+import {InMemoryDbService} from "angular-in-memory-web-api";
 
 @Injectable({
   providedIn: 'root'
 })
-export class InMemoryDbService {
+export class InMemoryDataService implements InMemoryDbService{
   createDb(){
     const students = [
       {id: 1, name: 'Игорь', surname: 'Гофман'},

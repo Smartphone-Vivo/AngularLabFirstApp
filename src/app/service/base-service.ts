@@ -1,25 +1,33 @@
-import { Injectable } from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 import {Student} from '../models/student';
+import {HttpClient} from "@angular/common/http";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
-export class BaseService {
+export class BaseService implements OnInit{
   students: Student[] = [
       {id: 1, name: 'Игорь', surname: 'Гофман'},
       {id: 2, name: 'Игорь', surname: 'Гофман2'},
       {id: 3, name: 'Игорь', surname: 'Гофман3'}
   ]
 
-  constructor() {}
+    private studentsUrl = 'api/students'
 
-  getAllStudents(): Student[]{
-    console.log('count of students' + this.students.length)
-    return this.students;
+  constructor(private http: HttpClient) {}
+
+  ngOnInit() {
   }
-  addNewStudent(student:Student){
+
+  getAllStudents(): Observable<Student[]>{
+    console.log('count of students' + this.students.length)
+    return this.http.get<Student[]>(this.studentsUrl)
+  }
+
+  addNewStudent(student:Student): Observable<Student>{
     console.log('addNewStudent')
-    this.students.push(student)
+    return this.http.post<Student>(this.studentsUrl, student).pipe();
   }
 
 
