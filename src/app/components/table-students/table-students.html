@@ -1,0 +1,19 @@
+<h1>Student table</h1>
+<table>
+  <thead>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Surname</th>
+  </thead>
+  <tbody>
+  @for (student of students; track student.id){
+    <tr>
+    <td>{{student.id}}</td>
+    <td>{{student.name}}</td>
+    <td>{{student.surname}}</td>
+  </tr>
+  }
+  </tbody>
+</table>
+<button (click)="addNewStudent()">Add new student</button>
+

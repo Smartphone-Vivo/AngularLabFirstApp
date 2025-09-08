@@ -1,0 +1,7 @@
+<p>student-editor works!</p>
+{{editingStudent.name}} {{editingStudent.surname}}
+<br>
+<input [(ngModel)]="editingStudent.name" type="text"> <br>
+<input [(ngModel)]="editingStudent.surname" type="text"> <br>
+
+<button (click)="addStudent()">Add new student</button>
