@@ -6,7 +6,7 @@
     <th>Surname</th>
   </thead>
   <tbody>
-  @for (student of students$ | async; track student.id){
+  @for (student of students; track student.id){
     <tr>
     <td>{{student.id}}</td>
     <td>{{student.name}}</td>

@@ -3,33 +3,23 @@ import {Student} from '../../models/student';
 import {BaseService} from '../../service/base-service';
 import {MatDialog} from '@angular/material/dialog';
 import {DialogEditWrapper} from '../student-editor/dialog-edit-wrapper/dialog-edit-wrapper';
-import {Observable} from 'rxjs';
-import {AsyncPipe} from '@angular/common';
-
 
 @Component({
   selector: 'app-table-students',
-  imports: [
-    AsyncPipe
-  ],
+  imports: [],
   templateUrl: './table-students.html',
   styleUrl: './table-students.scss'
 })
 export class TableStudents implements OnInit{
-  students$!: Observable<Student[]>
+  students: Student[]
 
-  constructor(
-    private baseService: BaseService,
-    public dialog: MatDialog) {
-  }
-
-  loadTable() {
-    this.students$ = this.baseService.getAllStudents()
+  constructor(private baseService: BaseService,
+              public dialog: MatDialog) {
+    this.students = []
   }
 
   ngOnInit(){
-    // this.baseService.getAllStudents().subscribe(data => this.students = data)
-    this.loadTable()
+    this.baseService.getAllStudents().subscribe(data => this.students = data)
     console.log("TableStudentsComponent")
   }
 
@@ -43,11 +33,14 @@ export class TableStudents implements OnInit{
     dialogAddingNewStudent.afterClosed().subscribe((result: Student) => {
       if(result != null){
         console.log('adding new student:' + result.name)
-        this.baseService.addNewStudent(result).subscribe(() => this.loadTable())
+        this.baseService.addNewStudent(result).subscribe(k=>
+        this.baseService.getAllStudents().subscribe(data => this.students = data))
       }
     })
   }
 
 
+  loadTable() {
 
+  }
 }
