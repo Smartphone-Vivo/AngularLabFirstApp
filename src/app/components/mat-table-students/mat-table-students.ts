@@ -1,6 +1,10 @@
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
+import {Student} from '../../models/student';
+import {BaseService} from '../../service/base-service';
+import {MatDialog} from '@angular/material/dialog';
+import {DialogEditWrapper} from '../student-editor/dialog-edit-wrapper/dialog-edit-wrapper';
 
 /**
  * @title Table with pagination
@@ -11,15 +15,55 @@ import {MatTableDataSource, MatTableModule} from '@angular/material/table';
   templateUrl: 'mat-table-students.html',
   imports: [MatTableModule, MatPaginatorModule],
 })
-export class MatTableStudents implements AfterViewInit {
+export class MatTableStudents implements OnInit {
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
 
+  students!: Student[]
+
+  constructor(private baseService: BaseService,
+              public dialog: MatDialog) {
+    this.students = []
+    console.log('пиво1', ELEMENT_DATA)
+    this.baseService.getAllStudents().subscribe(data => this.students = data)
+    console.log('пиво1.9')
+    console.log('пиво2', this.students)
+  }
+
   @ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
 
-  ngAfterViewInit() {
+  ngOnInit() {
     this.dataSource.paginator = this.paginator;
+
+    this.baseService.getAllStudents().subscribe(data => this.students = data)
+    console.log("TableStudentsComponent")
   }
+
+  addNewStudent() {
+    const dialogAddingNewStudent = this.dialog.open(DialogEditWrapper,
+      {
+        width: '350px',
+        data: null
+      })
+
+    dialogAddingNewStudent.afterClosed().subscribe((result: Student) => {
+      if(result != null){
+        console.log('adding new student:' + result.name)
+        this.baseService.addNewStudent(result).subscribe(k=>
+          this.baseService.getAllStudents().subscribe(data => this.students = data))
+          console.log('пиво4', this.students)
+      }
+    })
+  }
+
+
+  loadTable() {
+
+  }
+
+
+
+
 }
 
 export interface PeriodicElement {
