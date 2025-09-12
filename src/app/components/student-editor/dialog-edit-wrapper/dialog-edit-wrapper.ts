@@ -36,7 +36,11 @@ export class DialogEditWrapper implements OnInit{
   constructor(public dialogRef: MatDialogRef<DialogEditWrapper>,
     @Inject(MAT_DIALOG_DATA) public data: Student)
   {
-    this.editingStudent = new Student()
+    if (data) {
+      this.editingStudent = { ...data };
+    } else {
+      this.editingStudent = new Student(); // для Add
+    }
   }
 
   ngOnInit() {

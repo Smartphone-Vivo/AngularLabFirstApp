@@ -75,8 +75,7 @@ export class MatTableStudents implements OnInit, AfterViewInit {
         this.baseService.addNewStudent(result).subscribe(() => {
           this.loadTable()
         })
-      }
-      else{
+      } else {
 
       }
     })
@@ -86,23 +85,20 @@ export class MatTableStudents implements OnInit, AfterViewInit {
     this.baseService.deleteStudent(student).subscribe(() => {
       this.loadTable()
     })
-    }
+  }
 
   editStudent(student: Student) {
     const dialogRef = this.dialog.open(DialogEditWrapper, {
       width: '350px',
-      data: null
-    })
+      data: {...student}   // копия, чтобы не портить данные напрямую
+    });
 
-    dialogRef.afterClosed().subscribe((result: Student) => {
-      if (result.name != '' && result.surname != '') {
+    dialogRef.afterClosed().subscribe((result: Student | undefined) => {
+      if (result && result.name && result.surname) {
         this.baseService.editStudent(result).subscribe(() => {
-          this.loadTable()
-        })
-      } else {
-
+          this.loadTable();
+        });
       }
-    })
-
+    });
   }
 }
