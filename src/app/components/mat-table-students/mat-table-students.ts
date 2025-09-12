@@ -8,6 +8,7 @@ import {DialogEditWrapper} from '../student-editor/dialog-edit-wrapper/dialog-ed
 import {MatButton, MatButtonModule} from '@angular/material/button';
 import {MatSort, MatSortModule, Sort} from '@angular/material/sort';
 import {LiveAnnouncer} from '@angular/cdk/a11y';
+import {MatIcon} from '@angular/material/icon';
 
 /**
  * @title Table with pagination
@@ -16,10 +17,10 @@ import {LiveAnnouncer} from '@angular/cdk/a11y';
   selector: 'mat-table-students',
   styleUrl: 'mat-table-students.scss',
   templateUrl: 'mat-table-students.html',
-  imports: [MatTableModule, MatPaginatorModule, MatButtonModule, MatSortModule],
+  imports: [MatTableModule, MatPaginatorModule, MatButtonModule, MatSortModule, MatIcon],
 })
 export class MatTableStudents implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['id', 'name', 'surname'];
+  displayedColumns: string[] = ['id', 'name', 'surname', 'actions'];
   dataSource = new MatTableDataSource<Student>([]);
   private _liveAnnouncer = inject(LiveAnnouncer);
 
@@ -70,13 +71,28 @@ export class MatTableStudents implements OnInit, AfterViewInit {
     })
 
     dialogRef.afterClosed().subscribe((result: Student) => {
-      if (result) {
+      if (result.name != '' && result.surname != '') {
         this.baseService.addNewStudent(result).subscribe(() => {
           this.loadTable()
         })
       }
+      else{
+
+      }
     })
+  }
 
-
+  deleteStudent(student: Student) {
+    if(confirm(`Удалить ${student.name} ${student.surname}?`)) {
+      this.baseService.deleteStudent(student).subscribe({
+        next: () => {
+          this.loadTable();
+          console.log('Студент удален');
+        },
+        error: (err) => {
+          console.error('Ошибка при удалении:', err);
+        }
+      });
+    }
   }
 }

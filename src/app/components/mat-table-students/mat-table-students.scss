@@ -6,3 +6,14 @@ table {
   display: block;
   padding: 0 24px;
 }
+
+.mat-button{
+  height: 40px;
+  width: 40px;
+}
+
+.mat-buttons{
+  display: grid;
+  grid-template-columns: 10px 10px;
+  grid-gap: 50px;
+}

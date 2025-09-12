@@ -1,18 +1,14 @@
 import {Injectable, OnInit} from '@angular/core';
 import {Student} from '../models/student';
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {catchError, delay, Observable, tap, throwError} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class BaseService implements OnInit{
-  students: Student[] = [
-      {id: 1, name: 'Игорь', surname: 'Гофман'},
-      {id: 2, name: 'Игорь', surname: 'Гофман2'},
-      {id: 3, name: 'Игорь', surname: 'Гофман3'}
-  ]
 
+  log: Student[] = []
     private studentsUrl = 'api/students'
 
   constructor(private http: HttpClient) {}
@@ -21,7 +17,6 @@ export class BaseService implements OnInit{
   }
 
   getAllStudents(): Observable<Student[]>{
-    console.log('count of students' + this.students.length)
     return this.http.get<Student[]>(this.studentsUrl)
   }
 
@@ -30,6 +25,14 @@ export class BaseService implements OnInit{
     return this.http.post<Student>(this.studentsUrl, student).pipe();
   }
 
+  deleteStudent(student: Student): Observable<void> {
+    console.log('deleteStudent:', student.id, student.name);
+
+    return this.http.delete<void>(`${this.studentsUrl}/${student.id}`).pipe(
+      tap(() => {
+        this.log = this.log.filter(s => s.id !== student.id);
+      }),
+    );
+  }
 
 }
-
