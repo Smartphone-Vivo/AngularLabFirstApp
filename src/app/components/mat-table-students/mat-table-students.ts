@@ -83,16 +83,26 @@ export class MatTableStudents implements OnInit, AfterViewInit {
   }
 
   deleteStudent(student: Student) {
-    if(confirm(`Удалить ${student.name} ${student.surname}?`)) {
-      this.baseService.deleteStudent(student).subscribe({
-        next: () => {
-          this.loadTable();
-          console.log('Студент удален');
-        },
-        error: (err) => {
-          console.error('Ошибка при удалении:', err);
-        }
-      });
+    this.baseService.deleteStudent(student).subscribe(() => {
+      this.loadTable()
+    })
     }
+
+  editStudent(student: Student) {
+    const dialogRef = this.dialog.open(DialogEditWrapper, {
+      width: '350px',
+      data: null
+    })
+
+    dialogRef.afterClosed().subscribe((result: Student) => {
+      if (result.name != '' && result.surname != '') {
+        this.baseService.editStudent(result).subscribe(() => {
+          this.loadTable()
+        })
+      } else {
+
+      }
+    })
+
   }
 }

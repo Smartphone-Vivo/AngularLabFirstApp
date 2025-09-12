@@ -25,14 +25,14 @@ export class BaseService implements OnInit{
     return this.http.post<Student>(this.studentsUrl, student).pipe();
   }
 
-  deleteStudent(student: Student): Observable<void> {
+  deleteStudent(student: Student): Observable<Student> {
     console.log('deleteStudent:', student.id, student.name);
 
-    return this.http.delete<void>(`${this.studentsUrl}/${student.id}`).pipe(
-      tap(() => {
-        this.log = this.log.filter(s => s.id !== student.id);
-      }),
-    );
+    return this.http.delete<Student>(`api/students/${student.id}`).pipe()
+  }
+
+  editStudent(student: Student){
+    return this.http.put<Student>(`api/students/${student.id}`, student)
   }
 
 }
