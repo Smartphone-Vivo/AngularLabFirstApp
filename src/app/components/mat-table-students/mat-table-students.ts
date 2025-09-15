@@ -60,9 +60,14 @@ export class MatTableStudents implements OnInit, AfterViewInit {
   loadTable() {
     this.baseService.getAllStudents().subscribe(students => {
       this.dataSource.data = students
+
     })
   }
 
+  getId(){
+    this.loadTable()
+    return this.dataSource.data.length
+  }
 
   addNewStudent() {
     const dialogRef = this.dialog.open(DialogEditWrapper, {
@@ -72,11 +77,10 @@ export class MatTableStudents implements OnInit, AfterViewInit {
 
     dialogRef.afterClosed().subscribe((result: Student) => {
       if (result.name != '' && result.surname != '') {
+        this.baseService.getAllStudents().subscribe()
         this.baseService.addNewStudent(result).subscribe(() => {
           this.loadTable()
         })
-      } else {
-
       }
     })
   }
