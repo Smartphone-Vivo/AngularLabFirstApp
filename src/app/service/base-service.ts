@@ -12,6 +12,7 @@ export class BaseService implements OnInit{
   log: Student[] = []
     private studentsUrl = 'api/students'
     private jsonServerUrl = 'http://localhost:3000/students'
+    private mokkyDevUrl = 'https://d63e978222e08987.mokky.dev/students/'
 
 
   constructor(private http: HttpClient) {
@@ -22,7 +23,7 @@ export class BaseService implements OnInit{
   }
 
   getAllStudents(): Observable<Student[]>{
-    return this.http.get<Student[]>(this.jsonServerUrl)
+    return this.http.get<Student[]>(this.mokkyDevUrl)
 
   }
 
@@ -31,16 +32,16 @@ export class BaseService implements OnInit{
   addNewStudent(student:Student): Observable<Student>{
     console.log('addNewStudent', student.name, student.id)
     //student.id = "5"
-    return this.http.post<Student>(this.jsonServerUrl, student).pipe();
+    return this.http.post<Student>(this.mokkyDevUrl, student).pipe();
   }
 
   deleteStudent(student: Student): Observable<Student> {
     console.log('deleteStudent:', student.id, student.name);
-    return this.http.delete<Student>(`${this.jsonServerUrl}/${student.id}`)
+    return this.http.delete<Student>(`${this.mokkyDevUrl}${student.id}`)
   }
 
   editStudent(student: Student){
-    return this.http.put<Student>(`${this.jsonServerUrl}/${student.id}`, student)
+    return this.http.put<Student>(`${this.mokkyDevUrl}${student.id}`, student)
   }
 
 }
