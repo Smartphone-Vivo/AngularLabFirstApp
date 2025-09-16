@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, inject, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
+import {MatPaginator, MatPaginatorModule, PageEvent} from '@angular/material/paginator';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {Student} from '../../models/student';
 import {BaseService} from '../../service/base-service';
@@ -24,6 +24,10 @@ export class MatTableStudents implements OnInit, AfterViewInit {
   dataSource = new MatTableDataSource<Student>([]);
   private _liveAnnouncer = inject(LiveAnnouncer);
 
+  totalItems = 0;
+  pageSize = 5;
+  currentPage = 0;
+
   constructor(
     private baseService: BaseService,
     public dialog: MatDialog
@@ -35,10 +39,79 @@ export class MatTableStudents implements OnInit, AfterViewInit {
 
   @ViewChild(MatSort) sort!: MatSort;
 
+
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    // Подписываемся на события пагинатора
+    this.paginator.page.subscribe((event: PageEvent) => {
+      // event.pageIndex - новая страница (0, 1, 2...)
+      // event.pageSize - сколько элементов на странице
+      this.loadTableWithPagination(event.pageIndex, event.pageSize);
+    });
   }
+
+
+  ngOnInit() {
+    // this.loadTable()
+    this.loadTableWithPagination(this.currentPage, this.pageSize);
+  }
+
+  // loadTable() {
+  //   this.baseService.getAllStudents().subscribe(students => {
+  //     this.dataSource.data = students
+  //
+  //   })
+  // }
+
+  loadTableWithPagination(pageIndex: number, pageSize: number) {
+    // Конвертируем в номера страниц для сервера (+1)
+    const pageNumber = pageIndex;
+
+    this.baseService.getStudentsWithPagination(pageNumber, pageSize)
+      .subscribe(response => {
+        this.dataSource.data = response.items; // Данные для таблицы
+        this.paginator.length = response.meta.total_items; // Всего элементов
+      });
+  }
+
+
+
+  addNewStudent() {
+    const dialogRef = this.dialog.open(DialogEditWrapper, {
+      width: '350px',
+      data: null
+    })
+
+    dialogRef.afterClosed().subscribe((result: Student) => {
+      if (result.name != '' && result.surname != '') {
+        this.baseService.getAllStudents().subscribe()
+        this.baseService.addNewStudent(result).subscribe(() => {
+          this.loadTableWithPagination(this.currentPage, this.pageSize)
+        })
+      }
+    })
+  }
+
+  deleteStudent(student: Student) {
+    this.baseService.deleteStudent(student).subscribe(() => {
+      this.loadTableWithPagination(this.currentPage, this.pageSize)
+    })
+  }
+
+  editStudent(student: Student) {
+    const dialogRef = this.dialog.open(DialogEditWrapper, {
+      width: '350px',
+      data: {...student}   // копия, чтобы не портить данные напрямую
+    });
+
+    dialogRef.afterClosed().subscribe((result: Student | undefined) => {
+      if (result && result.name && result.surname) {
+        this.baseService.editStudent(result).subscribe(() => {
+          this.loadTableWithPagination(this.currentPage, this.pageSize)
+        });
+      }
+    });
+  }
+
 
   announceSortChange(sortState: Sort) {
     // This example uses English messages. If your application supports
@@ -52,57 +125,4 @@ export class MatTableStudents implements OnInit, AfterViewInit {
     }
   }
 
-
-  ngOnInit() {
-    this.loadTable()
-  }
-
-  loadTable() {
-    this.baseService.getAllStudents().subscribe(students => {
-      this.dataSource.data = students
-
-    })
-  }
-
-  getId(){
-    this.loadTable()
-    return this.dataSource.data.length
-  }
-
-  addNewStudent() {
-    const dialogRef = this.dialog.open(DialogEditWrapper, {
-      width: '350px',
-      data: null
-    })
-
-    dialogRef.afterClosed().subscribe((result: Student) => {
-      if (result.name != '' && result.surname != '') {
-        this.baseService.getAllStudents().subscribe()
-        this.baseService.addNewStudent(result).subscribe(() => {
-          this.loadTable()
-        })
-      }
-    })
-  }
-
-  deleteStudent(student: Student) {
-    this.baseService.deleteStudent(student).subscribe(() => {
-      this.loadTable()
-    })
-  }
-
-  editStudent(student: Student) {
-    const dialogRef = this.dialog.open(DialogEditWrapper, {
-      width: '350px',
-      data: {...student}   // копия, чтобы не портить данные напрямую
-    });
-
-    dialogRef.afterClosed().subscribe((result: Student | undefined) => {
-      if (result && result.name && result.surname) {
-        this.baseService.editStudent(result).subscribe(() => {
-          this.loadTable();
-        });
-      }
-    });
-  }
 }

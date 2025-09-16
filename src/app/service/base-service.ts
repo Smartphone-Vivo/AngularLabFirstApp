@@ -13,7 +13,7 @@ export class BaseService implements OnInit{
     private studentsUrl = 'api/students'
     private jsonServerUrl = 'http://localhost:3000/students'
     private mokkyDevUrl = 'https://d63e978222e08987.mokky.dev/students/'
-
+  // ссылка для пагинатора фурычит гнида https://d63e978222e08987.mokky.dev/students/?page=1&limit=3
 
   constructor(private http: HttpClient) {
 
@@ -27,7 +27,11 @@ export class BaseService implements OnInit{
 
   }
 
+  getStudentsWithPagination(pageNumber: number, pageSize: number): Observable<any>{
+    pageNumber++
+    return this.http.get<any>(`https://d63e978222e08987.mokky.dev/students/?page=${pageNumber}&limit=${pageSize}`)
 
+  }
 
   addNewStudent(student:Student): Observable<Student>{
     console.log('addNewStudent', student.name, student.id)
