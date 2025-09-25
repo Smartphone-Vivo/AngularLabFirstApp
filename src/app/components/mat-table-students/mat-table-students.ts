@@ -20,7 +20,7 @@ import {MatIcon} from '@angular/material/icon';
   imports: [MatTableModule, MatPaginatorModule, MatButtonModule, MatSortModule, MatIcon],
 })
 export class MatTableStudents implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['id', 'name', 'surname', 'actions'];
+  displayedColumns: string[] = ['id', 'fio', 'group', 'phoneNumber', 'actions'];
   dataSource = new MatTableDataSource<Student>([]);
   private _liveAnnouncer = inject(LiveAnnouncer);
 
@@ -46,6 +46,8 @@ export class MatTableStudents implements OnInit, AfterViewInit {
       // event.pageIndex - новая страница (0, 1, 2...)
       // event.pageSize - сколько элементов на странице
       this.loadTableWithPagination(event.pageIndex, event.pageSize);
+      this.pageSize = event.pageSize
+      this.currentPage = event.pageIndex
     });
   }
 
@@ -67,9 +69,10 @@ export class MatTableStudents implements OnInit, AfterViewInit {
     const pageNumber = pageIndex;
 
     this.baseService.getStudentsWithPagination(pageNumber, pageSize)
+
       .subscribe(response => {
-        this.dataSource.data = response.items; // Данные для таблицы
-        this.paginator.length = response.meta.total_items; // Всего элементов
+        this.dataSource.data = response.content; // Данные для таблицы
+        this.paginator.length = response.pageable.pageSize; // Всего элементов
       });
   }
 
@@ -82,9 +85,10 @@ export class MatTableStudents implements OnInit, AfterViewInit {
     })
 
     dialogRef.afterClosed().subscribe((result: Student) => {
-      if (result.name != '' && result.surname != '') {
+      if (result.fio != '' && result.group != '') {
         this.baseService.getAllStudents().subscribe()
         this.baseService.addNewStudent(result).subscribe(() => {
+          // this.loadTable()
           this.loadTableWithPagination(this.currentPage, this.pageSize)
         })
       }
@@ -93,6 +97,7 @@ export class MatTableStudents implements OnInit, AfterViewInit {
 
   deleteStudent(student: Student) {
     this.baseService.deleteStudent(student).subscribe(() => {
+      // this.loadTable()
       this.loadTableWithPagination(this.currentPage, this.pageSize)
     })
   }
@@ -104,8 +109,9 @@ export class MatTableStudents implements OnInit, AfterViewInit {
     });
 
     dialogRef.afterClosed().subscribe((result: Student | undefined) => {
-      if (result && result.name && result.surname) {
+      if (result && result.fio && result.group) {
         this.baseService.editStudent(result).subscribe(() => {
+          // this.loadTable()
           this.loadTableWithPagination(this.currentPage, this.pageSize)
         });
       }

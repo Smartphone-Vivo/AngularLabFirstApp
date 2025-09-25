@@ -1,12 +1,14 @@
 export class Student{
   constructor() {
     this.id = null
-    this.name = ""
-    this.surname = ""
+    this.fio = ""
+    this.group = ""
+    this.phoneNumber = ""
   }
 
 
   id: number | null
-  name: string
-  surname: string
+  fio: string
+  group: string
+  phoneNumber: string
 }

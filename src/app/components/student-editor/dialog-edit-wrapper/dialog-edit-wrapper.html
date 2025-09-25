@@ -4,12 +4,16 @@
 <div mat-dialog-content style="text-align: center; margin-top: 20px">
 
   <mat-form-field class="full-width-input" >
-    <input matInput type="text" placeholder="Name of student"
-           [(ngModel)]="editingStudent.name" required>
+    <input matInput type="text" placeholder="fio"
+           [(ngModel)]="editingStudent.fio" required>
   </mat-form-field>
   <mat-form-field class="full-width-input">
-    <input matInput type="text" placeholder="Surname of student"
-           [(ngModel)]="editingStudent.surname" required>
+    <input matInput type="text" placeholder="group"
+           [(ngModel)]="editingStudent.group" required>
+  </mat-form-field>
+  <mat-form-field class="full-width-input">
+    <input matInput type="text" placeholder="phoneNumber"
+           [(ngModel)]="editingStudent.phoneNumber" required>
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
