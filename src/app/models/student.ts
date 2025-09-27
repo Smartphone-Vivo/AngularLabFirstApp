@@ -3,12 +3,12 @@ export class Student{
     this.id = null
     this.fio = ""
     this.group = ""
-    this.phoneNumber = ""
+    this.phone_number = ""
   }
 
 
   id: number | null
   fio: string
   group: string
-  phoneNumber: string
+  phone_number: string
 }

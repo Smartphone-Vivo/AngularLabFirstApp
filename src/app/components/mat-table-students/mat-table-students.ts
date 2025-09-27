@@ -72,7 +72,7 @@ export class MatTableStudents implements OnInit, AfterViewInit {
 
       .subscribe(response => {
         this.dataSource.data = response.content; // Данные для таблицы
-        this.paginator.length = response.pageable.pageSize; // Всего элементов
+        this.paginator.length = response.totalElements; // Всего элементов
       });
   }
 
