@@ -1,4 +1,17 @@
+
+<div class="search-block">
+  <h3>Search:</h3>
+  <mat-form-field class="search-input" >
+    <input matInput type="text" placeholder="Search by name:" [(ngModel)]="title" required><br>
+  </mat-form-field>
+  <button (click)="searchStudentsTable()"class="search-button" matFab aria-label="Example icon button with a delete icon">
+    <mat-icon>search</mat-icon>
+  </button>
+</div>
+
 <h1>Student table</h1>
+
+
 <div class="mat-elevation-z8">
   <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
 

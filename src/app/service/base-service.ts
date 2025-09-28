@@ -16,10 +16,14 @@ export class BaseService implements OnInit{
     private springUrl = 'http://localhost:8080/api/base/students'
   // ссылка для пагинатора https://d63e978222e08987.mokky.dev/students/?page=1&limit=3
   // Spring пагинатор https://localhost:8080/api/base/students?page=0&size=5
-// Spring пагинатор   https://localhost:8080/api/base/students?page=1&size=5
+  // Spring пагинатор   https://localhost:8080/api/base/students?page=1&size=5
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
+  }
+
+  getFilteringStudents(name : string){
+    return this.http.get<Student[]>(`http://localhost:8080/api/base/search?name=${name}`)
   }
 
   getAllStudents(): Observable<Student[]>{

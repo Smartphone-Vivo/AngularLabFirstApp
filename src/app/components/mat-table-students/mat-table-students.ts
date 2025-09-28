@@ -9,6 +9,8 @@ import {MatButton, MatButtonModule} from '@angular/material/button';
 import {MatSort, MatSortModule, Sort} from '@angular/material/sort';
 import {LiveAnnouncer} from '@angular/cdk/a11y';
 import {MatIcon} from '@angular/material/icon';
+import {FormsModule} from '@angular/forms';
+import {MatFormField, MatInput} from '@angular/material/input';
 
 /**
  * @title Table with pagination
@@ -17,7 +19,7 @@ import {MatIcon} from '@angular/material/icon';
   selector: 'mat-table-students',
   styleUrl: 'mat-table-students.scss',
   templateUrl: 'mat-table-students.html',
-  imports: [MatTableModule, MatPaginatorModule, MatButtonModule, MatSortModule, MatIcon],
+  imports: [MatTableModule, MatPaginatorModule, MatButtonModule, MatSortModule, MatIcon, FormsModule, MatInput, MatFormField],
 })
 export class MatTableStudents implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['id', 'fio', 'group', 'phoneNumber', 'actions'];
@@ -27,6 +29,7 @@ export class MatTableStudents implements OnInit, AfterViewInit {
   totalItems = 0;
   pageSize = 5;
   currentPage = 0;
+
 
   constructor(
     private baseService: BaseService,
@@ -57,12 +60,12 @@ export class MatTableStudents implements OnInit, AfterViewInit {
     this.loadTableWithPagination(this.currentPage, this.pageSize);
   }
 
-  // loadTable() {
-  //   this.baseService.getAllStudents().subscribe(students => {
-  //     this.dataSource.data = students
-  //
-  //   })
-  // }
+  loadTableWithFiltering(name : string){
+    this.baseService.getFilteringStudents(name)
+      .subscribe(response =>
+      this.dataSource.data = response
+      )
+  }
 
   loadTableWithPagination(pageIndex: number, pageSize: number) {
     // Конвертируем в номера страниц для сервера (+1)
@@ -129,6 +132,21 @@ export class MatTableStudents implements OnInit, AfterViewInit {
     } else {
       this._liveAnnouncer.announce('Sorting cleared');
     }
+  }
+
+  title: string = "";
+
+
+  searchStudentsTable(){
+    if(this.title != ""){
+      console.log("передал title", this.title)
+      this.loadTableWithFiltering(this.title)
+    }
+    else{
+      console.log("searchStudentsTable (empty)")
+      this.loadTableWithPagination(this.currentPage, this.pageSize);
+    }
+
   }
 
 }
