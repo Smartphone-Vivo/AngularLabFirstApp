@@ -28,9 +28,6 @@ export class FilterStudents {
     private matTableStudents : MatTableStudents
   ) {
   }
-  logging(){
-    console.log(typeof(this.title))
-  }
 
   searchStudentsTable(){
     if(this.title != ""){
@@ -47,7 +44,7 @@ export class FilterStudents {
   clearInput(){
     this.isSearchButton.set(true)
     this.title = ""
-    this.matTableStudents.loadTableWithPagination(0, 5)
+    this.matTableStudents.loadTableWithFiltering("");
   }
 
 }

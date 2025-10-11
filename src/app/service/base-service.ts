@@ -14,9 +14,9 @@ export class BaseService implements OnInit{
     private jsonServerUrl = 'http://localhost:3000/students'
     private mokkyDevUrl = 'https://d63e978222e08987.mokky.dev/students/'
     private springUrl = 'http://localhost:8080/api/base/students'
-  // ссылка для пагинатора https://d63e978222e08987.mokky.dev/students/?page=1&limit=3
-  // Spring пагинатор https://localhost:8080/api/base/students?page=0&size=5
-  // Spring пагинатор   https://localhost:8080/api/base/students?page=1&size=5
+    // ссылка для пагинатора https://d63e978222e08987.mokky.dev/students/?page=1&limit=3
+    // Spring пагинатор https://localhost:8080/api/base/students?page=0&size=5
+    // Spring пагинатор   https://localhost:8080/api/base/students?page=1&size=5
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
@@ -26,16 +26,6 @@ export class BaseService implements OnInit{
     return this.http.get<Student[]>(`http://localhost:8080/api/base/students?name=${name}&page=${pageNumber}&size=${pageSize}`)
   }
 
-  getAllStudents(): Observable<Student[]>{
-    return this.http.get<Student[]>('http://localhost:8080/api/base/students')
-
-  }
-
-  getStudentsWithPagination(pageNumber: number, pageSize: number): Observable<any>{
-    pageNumber++
-    return this.http.get<any>(`${this.springUrl}?page=${--pageNumber}&size=${pageSize}`)
-
-  }
 
   addNewStudent(student:Student): Observable<Student>{
     console.log('addNewStudent', student.fio, student.id)
