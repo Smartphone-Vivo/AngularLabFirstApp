@@ -30,6 +30,8 @@ export class MatTableStudents implements OnInit, AfterViewInit {
   pageSize = 5;
   currentPage = 0;
   defaultName = ""
+  sortBy = "id,asc"
+  sortType = ""
 
   constructor(
     private baseService: BaseService,
@@ -45,6 +47,9 @@ export class MatTableStudents implements OnInit, AfterViewInit {
     this.paginator.page.subscribe((event: PageEvent) => {
       this.pageSize = event.pageSize
       this.currentPage = event.pageIndex
+
+      this.dataSource.sort = this.sort;
+
       this.loadTableWithFiltering(this.defaultName);
       console.log("изменения пагинатора", this.currentPage, this.pageSize)
     });
@@ -58,7 +63,7 @@ export class MatTableStudents implements OnInit, AfterViewInit {
   loadTableWithFiltering(name : string){
     this.defaultName = name
     console.log("loadtablewithfiltering", this.currentPage, this.pageSize)
-    this.baseService.getFilteringStudents(name, this.currentPage, this.pageSize)
+    this.baseService.getFilteringStudents(name, this.currentPage, this.pageSize, this.sortBy)
       .subscribe((response : any) =>{
           this.dataSource.data = response.content
           this.paginator.length = response.totalElements
@@ -75,7 +80,6 @@ export class MatTableStudents implements OnInit, AfterViewInit {
     dialogRef.afterClosed().subscribe((result: Student) => {
       if (result.fio != '' && result.group != '') {
         this.baseService.addNewStudent(result).subscribe(() => {
-          // this.loadTable()
           this.loadTableWithFiltering(this.defaultName);
         })
       }
@@ -109,11 +113,18 @@ export class MatTableStudents implements OnInit, AfterViewInit {
     // multiple language, you would internationalize these strings.
     // Furthermore, you can customize the message to add additional
     // details about the values being sorted.
-    if (sortState.direction) {
-      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
-    } else {
-      this._liveAnnouncer.announce('Sorting cleared');
-    }
+    console.log("sort", sortState.direction, sortState.active)
+
+    this.sortBy = `${sortState.active},${sortState.direction}`
+    console.log(this.sortBy)
+    this.loadTableWithFiltering(this.defaultName);
+
+
+    // if (sortState.direction) {
+    //   this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+    // } else {
+    //   this._liveAnnouncer.announce('Sorting cleared');
+    // }
   }
 
 }

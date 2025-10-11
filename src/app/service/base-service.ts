@@ -22,8 +22,8 @@ export class BaseService implements OnInit{
   ngOnInit() {
   }
 
-  getFilteringStudents(name : string, pageNumber: number, pageSize: number){
-    return this.http.get<Student[]>(`http://localhost:8080/api/base/students?name=${name}&page=${pageNumber}&size=${pageSize}`)
+  getFilteringStudents(name : string, pageNumber: number, pageSize: number, sortBy: string){
+    return this.http.get<Student[]>(`http://localhost:8080/api/base/students?name=${name}&page=${pageNumber}&size=${pageSize}&sort=${sortBy}`)
   }
 
 
