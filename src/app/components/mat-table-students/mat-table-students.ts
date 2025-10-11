@@ -30,7 +30,7 @@ export class MatTableStudents implements OnInit, AfterViewInit {
   totalItems = 0;
   pageSize = 5;
   currentPage = 0;
-
+  defaultName = ""
 
   constructor(
     private baseService: BaseService,
@@ -59,12 +59,15 @@ export class MatTableStudents implements OnInit, AfterViewInit {
   ngOnInit() {
     // this.loadTable()
     this.loadTableWithPagination(this.currentPage, this.pageSize);
+
   }
 
   loadTableWithFiltering(name : string){
-    this.baseService.getFilteringStudents(name)
-      .subscribe(response =>
-      this.dataSource.data = response
+    this.baseService.getFilteringStudents(name, this.currentPage, this.pageSize)
+      .subscribe((response : any) =>{
+          this.dataSource.data = response.content
+          this.paginator.length = response.totalElements
+      }
       )
   }
 
