@@ -11,6 +11,7 @@ import {LiveAnnouncer} from '@angular/cdk/a11y';
 import {MatIcon} from '@angular/material/icon';
 import {FormsModule} from '@angular/forms';
 import {MatFormField, MatInput} from '@angular/material/input';
+import {FilterStudents} from '../filter-students/filter-students';
 
 /**
  * @title Table with pagination
@@ -19,7 +20,7 @@ import {MatFormField, MatInput} from '@angular/material/input';
   selector: 'mat-table-students',
   styleUrl: 'mat-table-students.scss',
   templateUrl: 'mat-table-students.html',
-  imports: [MatTableModule, MatPaginatorModule, MatButtonModule, MatSortModule, MatIcon, FormsModule, MatInput, MatFormField],
+  imports: [MatTableModule, MatPaginatorModule, MatButtonModule, MatSortModule, MatIcon, FormsModule, MatInput, MatFormField, FilterStudents],
 })
 export class MatTableStudents implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['id', 'fio', 'group', 'phoneNumber', 'actions'];

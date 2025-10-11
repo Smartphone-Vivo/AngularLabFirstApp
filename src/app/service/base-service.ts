@@ -23,7 +23,7 @@ export class BaseService implements OnInit{
   }
 
   getFilteringStudents(name : string){
-    return this.http.get<Student[]>(`http://localhost:8080/api/base/search?name=${name}`)
+    return this.http.get<Student[]>(`http://localhost:8080/api/base/students?name=${name}`)
   }
 
   getAllStudents(): Observable<Student[]>{
