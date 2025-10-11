@@ -49,9 +49,10 @@ export class MatTableStudents implements OnInit, AfterViewInit {
     this.paginator.page.subscribe((event: PageEvent) => {
       // event.pageIndex - новая страница (0, 1, 2...)
       // event.pageSize - сколько элементов на странице
-      this.loadTableWithFiltering(this.defaultName);
+
       this.pageSize = event.pageSize
       this.currentPage = event.pageIndex
+      this.loadTableWithFiltering(this.defaultName);
       console.log("изменения пагинатора", this.currentPage, this.pageSize)
     });
   }
@@ -64,6 +65,7 @@ export class MatTableStudents implements OnInit, AfterViewInit {
 
   loadTableWithFiltering(name : string){
     this.defaultName = name
+    console.log("loadtablewithfiltering", this.currentPage, this.pageSize)
     this.baseService.getFilteringStudents(name, this.currentPage, this.pageSize)
       .subscribe((response : any) =>{
           this.dataSource.data = response.content
