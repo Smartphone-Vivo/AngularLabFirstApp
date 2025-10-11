@@ -49,20 +49,21 @@ export class MatTableStudents implements OnInit, AfterViewInit {
     this.paginator.page.subscribe((event: PageEvent) => {
       // event.pageIndex - новая страница (0, 1, 2...)
       // event.pageSize - сколько элементов на странице
-      this.loadTableWithPagination(event.pageIndex, event.pageSize);
+      this.loadTableWithFiltering(this.defaultName);
       this.pageSize = event.pageSize
       this.currentPage = event.pageIndex
+      console.log("изменения пагинатора", this.currentPage, this.pageSize)
     });
   }
 
 
   ngOnInit() {
     // this.loadTable()
-    this.loadTableWithPagination(this.currentPage, this.pageSize);
-
+    this.loadTableWithFiltering(this.defaultName);
   }
 
   loadTableWithFiltering(name : string){
+    this.defaultName = name
     this.baseService.getFilteringStudents(name, this.currentPage, this.pageSize)
       .subscribe((response : any) =>{
           this.dataSource.data = response.content
@@ -136,21 +137,6 @@ export class MatTableStudents implements OnInit, AfterViewInit {
     } else {
       this._liveAnnouncer.announce('Sorting cleared');
     }
-  }
-
-  title: string = "";
-
-
-  searchStudentsTable(){
-    if(this.title != ""){
-      console.log("передал title", this.title)
-      this.loadTableWithFiltering(this.title)
-    }
-    else{
-      console.log("searchStudentsTable (empty)")
-      this.loadTableWithPagination(this.currentPage, this.pageSize);
-    }
-
   }
 
 }
