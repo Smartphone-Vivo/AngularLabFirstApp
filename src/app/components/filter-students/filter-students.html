@@ -1,0 +1,20 @@
+<div class="search-block">
+  <h3>Search:</h3>
+  <mat-form-field class="search-input" >
+    <input matInput type="text" placeholder="Search by name:" [(ngModel)]="title" required><br>
+  </mat-form-field>
+  @if (isSearchButton() == true){
+    <button (click)="searchStudentsTable()" class="search-button" matFab aria-label="Example icon button with a delete icon">
+      <mat-icon>search</mat-icon>
+    </button>
+  } @else {
+    <button (click)="searchStudentsTable()" class="search-button" matFab aria-label="Example icon button with a delete icon">
+      <mat-icon>search</mat-icon>
+    </button>
+    <button (click)="clearInput()" class="search-button" matFab aria-label="Example icon button with a delete icon">
+      <mat-icon >close</mat-icon>
+    </button>
+  }
+
+</div>
+
