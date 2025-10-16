@@ -21,13 +21,9 @@ import {MatIcon} from '@angular/material/icon';
 export class FilterStudents {
   title: string = "";
 
-
   isSearchButton = signal<boolean>(true)
 
-  constructor(
-    private matTableStudents : MatTableStudents
-  ) {
-  }
+  constructor(private matTableStudents : MatTableStudents) {}
 
   searchStudentsTable(){
     if(this.title != ""){

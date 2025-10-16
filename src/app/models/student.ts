@@ -6,7 +6,6 @@ export class Student{
     this.phone_number = ""
   }
 
-
   id: number | null
   fio: string
   group: string

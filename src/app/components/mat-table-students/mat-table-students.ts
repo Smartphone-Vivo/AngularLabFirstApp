@@ -5,12 +5,11 @@ import {Student} from '../../models/student';
 import {BaseService} from '../../service/base-service';
 import {MatDialog} from '@angular/material/dialog';
 import {DialogEditWrapper} from '../student-editor/dialog-edit-wrapper/dialog-edit-wrapper';
-import {MatButton, MatButtonModule} from '@angular/material/button';
+import {MatButtonModule} from '@angular/material/button';
 import {MatSort, MatSortModule, Sort} from '@angular/material/sort';
 import {LiveAnnouncer} from '@angular/cdk/a11y';
 import {MatIcon} from '@angular/material/icon';
 import {FormsModule} from '@angular/forms';
-import {MatFormField, MatInput} from '@angular/material/input';
 import {FilterStudents} from '../filter-students/filter-students';
 
 /**
@@ -20,7 +19,7 @@ import {FilterStudents} from '../filter-students/filter-students';
   selector: 'mat-table-students',
   styleUrl: 'mat-table-students.scss',
   templateUrl: 'mat-table-students.html',
-  imports: [MatTableModule, MatPaginatorModule, MatButtonModule, MatSortModule, MatIcon, FormsModule, MatInput, MatFormField, FilterStudents],
+  imports: [MatTableModule, MatPaginatorModule, MatButtonModule, MatSortModule, MatIcon, FormsModule, FilterStudents],
 })
 export class MatTableStudents implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['id', 'fio', 'group', 'phoneNumber', 'actions'];

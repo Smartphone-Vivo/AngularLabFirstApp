@@ -4,7 +4,8 @@ import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import {HttpClientInMemoryWebApiModule, InMemoryDbService} from "angular-in-memory-web-api";
-import {provideHttpClient} from "@angular/common/http";
+import {provideHttpClient, withInterceptors} from "@angular/common/http";
+import {authTokenInterceptor} from './auth/auth.interceptor';
 
 
 export const appConfig: ApplicationConfig = {
@@ -12,7 +13,7 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
     provideRouter(routes),
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([authTokenInterceptor])),
     // HttpClientInMemoryWebApiModule.forRoot(
     //     InMemoryDataService,
     //     { dataEncapsulation: false }
