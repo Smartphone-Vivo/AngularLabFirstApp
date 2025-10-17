@@ -4,8 +4,9 @@ import {MatTableStudents} from './components/mat-table-students/mat-table-studen
 import {canActivateAuth} from './auth/access.guard';
 
 export const routes: Routes = [
+  {path:'table', component: MatTableStudents, canActivate: [canActivateAuth]},
   {path:'', component: MatTableStudents, canActivate: [canActivateAuth]},
-  {path:'login', component: LoginPage},
-  {path:'table', component: MatTableStudents, canActivate: [canActivateAuth]}
+  {path:'login', component: LoginPage}
+
 
 ];

@@ -18,7 +18,7 @@ export class AuthService {
 
   get isAuth(){
     if(!this.token){
-      this.cookieService.get('token')
+      this.token = this.cookieService.get('token')
     }
     return !!this.token
   }
