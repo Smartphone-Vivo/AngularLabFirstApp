@@ -18,12 +18,11 @@ export class BaseService implements OnInit{
     // Spring пагинатор https://localhost:8080/api/base/students?page=0&size=5
     // Spring пагинатор   https://localhost:8080/api/base/students?page=1&size=5
   constructor(private http: HttpClient) {}
-
   ngOnInit() {
   }
 
   getFilteringStudents(name : string, pageNumber: number, pageSize: number, sortBy: string){
-    return this.http.get<Student[]>(`http://localhost:8080/api/base/students?name=${name}&page=${pageNumber}&size=${pageSize}&sort=${sortBy}`)
+    return this.http.get<Student[]>(`http://localhost:8080/api/base/students/${pageNumber}/${pageSize}?name=${name}&sort=${sortBy}`)
   }
 
 
