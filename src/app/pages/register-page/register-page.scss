@@ -1,17 +1,23 @@
 :host{
-  background-color: #4b5a5a;
+  display: flex;
+  justify-content: center;
 }
 
 .register-form{
   display: flex;
   border-radius: 30px;
   background-color: #ffffff;
-  width: 500px;
+  width: 300px;
   height: 500px;
   flex-direction: column;
-  align-items: center;
-  padding-top: 15px;
+  padding-top: 30px;
+  padding-left: 100px;
+  padding-right: 100px;
   box-shadow: 0px 3px 3px #ececec;
+  margin-top: 200px;
+  text-align: center;
+  padding-bottom: 70px;
+
 }
 
 .input-label{
@@ -19,4 +25,14 @@
 
 .register-header{
   margin-bottom: 70px;
+  margin-top: 50px;
 }
+
+.login-register-buttons{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 150px;
+
+}
+
