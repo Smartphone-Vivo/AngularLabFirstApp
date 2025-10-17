@@ -1,14 +1,15 @@
-import {Component, inject, signal} from '@angular/core';
+
+import {ChangeDetectionStrategy, Component, inject, signal} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {AuthService} from '../../auth/auth-service';
 import {Router} from '@angular/router';
+import {AuthService} from '../../auth/auth-service';
 
 @Component({
-  selector: 'app-login-page',
+  selector: 'app-register-page',
   imports: [
     MatFormFieldModule,
     MatIconModule,
@@ -16,13 +17,13 @@ import {Router} from '@angular/router';
     MatButtonModule,
     ReactiveFormsModule
   ],
-  templateUrl: './login-page.html',
-  styleUrl: './login-page.scss'
+  templateUrl: './register-page.html',
+  styleUrl: './register-page.scss'
 })
-export class LoginPage {
+export class RegisterPage {
 
+  router= inject(Router)
   authService = inject(AuthService)
-  router = inject(Router)
 
   hide = signal(true);
 
@@ -43,20 +44,24 @@ export class LoginPage {
     event.preventDefault()
 
     if (this.form.valid) {
-
-      this.authService.login(this.form.value as any)
+      this.authService.register(this.form.value as any)
         .subscribe(response => {
-            this.router.navigate(['/table'])
+            this.router.navigate(['/login'])
             console.log(response)
           }
         )
 
       console.log(this.form.value)
     }
-  }
 
 
-  toRegister(){
-    this.router.navigate(['/register'])
+      console.log(this.form.value)
+    }
+
+  toLogin() {
+    console.log('toLogin')
+    this.router.navigate(['/login'])
   }
+
 }
+
