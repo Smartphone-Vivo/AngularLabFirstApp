@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {tap} from 'rxjs';
 import {TokenResponse} from './auth.interface';
 import {CookieService} from 'ngx-cookie-service';
+import {jwtDecode} from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -12,13 +13,25 @@ export class AuthService {
   private springUrl = 'http://localhost:8080/api'
 
   cookieService = inject(CookieService)
+  // jwtDecode = inject(jwtDecode()) //хуйняяяяяяяяяяяяя
 
   token: string | null = null
   refreshToken: string | null = null
 
+
+  // getDecodedAccessToken(token: string) : any{
+  //   try {
+  //     return jwtDecode(token);
+  //   } catch (Error) {
+  //     return null;
+  //   }
+  // }
+
   get isAuth(){
     if(!this.token){
       this.token = this.cookieService.get('token')
+
+      // console.log('decoded token',this.getDecodedAccessToken(this.token))
     }
     return !!this.token
   }
