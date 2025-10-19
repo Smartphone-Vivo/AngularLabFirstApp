@@ -5,16 +5,30 @@
 
   <mat-form-field class="full-width-input" >
     <input matInput type="text" placeholder="fio"
+           [(ngModel)]="editingStudent.username" required>
+  </mat-form-field>
+  <mat-form-field class="full-width-input" >
+    <input matInput type="text" placeholder="fio"
+           [(ngModel)]="editingStudent.role" required>
+  </mat-form-field>
+  <mat-form-field class="full-width-input" >
+    <input matInput type="text" placeholder="fio"
            [(ngModel)]="editingStudent.fio" required>
+  </mat-form-field>
+  <mat-form-field class="full-width-input">
+    <input matInput type="text" placeholder="phoneNumber"
+           [(ngModel)]="editingStudent.phone_number" required>
   </mat-form-field>
   <mat-form-field class="full-width-input">
     <input matInput type="text" placeholder="group"
            [(ngModel)]="editingStudent.group" required>
   </mat-form-field>
   <mat-form-field class="full-width-input">
-    <input matInput type="text" placeholder="phoneNumber"
-           [(ngModel)]="editingStudent.phone_number" required>
+    <input matInput type="text" placeholder="group"
+           [(ngModel)]="editingStudent.enable" required>
   </mat-form-field>
+
+
 </div>
 <div mat-dialog-actions>
   <button  mat-raised-button color="primary"

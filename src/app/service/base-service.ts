@@ -38,7 +38,7 @@ export class BaseService implements OnInit{
   }
 
   editStudent(student: Student){
-
+    console.log('editStudent')
     return this.http.put<Student>(`${this.springUrl}`, student)
   }
 

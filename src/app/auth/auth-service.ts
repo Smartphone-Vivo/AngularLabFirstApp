@@ -13,25 +13,24 @@ export class AuthService {
   private springUrl = 'http://localhost:8080/api'
 
   cookieService = inject(CookieService)
-  // jwtDecode = inject(jwtDecode()) //хуйняяяяяяяяяяяяя
+
 
   token: string | null = null
   refreshToken: string | null = null
+  role: string | null = null
 
-
-  // getDecodedAccessToken(token: string) : any{
-  //   try {
-  //     return jwtDecode(token);
-  //   } catch (Error) {
-  //     return null;
-  //   }
-  // }
+  getDecodedAccessToken(token: string) : any{
+    try {
+      return jwtDecode(token);
+    } catch (Error) {
+      return null;
+    }
+  }
 
   get isAuth(){
     if(!this.token){
       this.token = this.cookieService.get('token')
-
-      // console.log('decoded token',this.getDecodedAccessToken(this.token))
+      console.log('decoded token',this.role)
     }
     return !!this.token
   }
@@ -46,7 +45,8 @@ export class AuthService {
         tap(val => {
           this.token = val.accessToken
           this.refreshToken = val.refreshToken
-
+          this.role = this.getDecodedAccessToken(this.token).roles
+          
           this.cookieService.set('token', this.token)
           this.cookieService.set('refreshToken', this.refreshToken)
         })

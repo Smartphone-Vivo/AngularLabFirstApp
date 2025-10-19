@@ -33,6 +33,8 @@ export class DialogEditWrapper implements OnInit{
 
   editingStudent: Student
 
+  //todo с группами заеб
+
   constructor(public dialogRef: MatDialogRef<DialogEditWrapper>,
     @Inject(MAT_DIALOG_DATA) public data: Student)
   {

@@ -11,6 +11,7 @@ import {LiveAnnouncer} from '@angular/cdk/a11y';
 import {MatIcon} from '@angular/material/icon';
 import {FormsModule} from '@angular/forms';
 import {FilterStudents} from '../filter-students/filter-students';
+import {AuthService} from '../../auth/auth-service';
 
 /**
  * @title Table with pagination
@@ -22,15 +23,22 @@ import {FilterStudents} from '../filter-students/filter-students';
   imports: [MatTableModule, MatPaginatorModule, MatButtonModule, MatSortModule, MatIcon, FormsModule, FilterStudents],
 })
 export class MatTableStudents implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['id', 'fio', 'group', 'phoneNumber', 'actions'];
-  dataSource = new MatTableDataSource<Student>([]);
-  private _liveAnnouncer = inject(LiveAnnouncer);
 
   pageSize = 5;
   currentPage = 0;
   defaultName = ""
   sortBy = "id,asc"
   sortType = ""
+  role = inject(AuthService).role
+
+
+
+  displayedColumns: string[] = ['id', 'fio', 'group', 'phoneNumber', 'actions'];
+  dataSource = new MatTableDataSource<Student>([]);
+  private _liveAnnouncer = inject(LiveAnnouncer);
+
+
+
 
   constructor(
     private baseService: BaseService,
@@ -54,17 +62,31 @@ export class MatTableStudents implements OnInit, AfterViewInit {
     });
   }
 
+  //todo при обновлении после логина табличка ломается
 
   ngOnInit() {
     this.loadTableWithFiltering(this.defaultName);
   }
 
+  checkRole(){
+    if(this.role == 'ADMIN'){
+      this.displayedColumns = ['id', 'fio', 'group', 'phoneNumber', 'actions']
+    }
+    if(this.role == 'STUDENT'){
+      this.displayedColumns = ['id', 'fio', 'group', 'phoneNumber']
+    }
+
+  }
+
   loadTableWithFiltering(name : string){
+    console.log(this.role, 'hjkm')
+    this.checkRole()
     this.defaultName = name
     console.log("loadtablewithfiltering", this.currentPage, this.pageSize)
     this.baseService.getFilteringStudents(name, this.currentPage, this.pageSize, this.sortBy)
       .subscribe((response : any) =>{
           this.dataSource.data = response.content
+          console.log('жимолость', this.dataSource.data, response.content)
           this.paginator.length = response.totalElements
       }
       )

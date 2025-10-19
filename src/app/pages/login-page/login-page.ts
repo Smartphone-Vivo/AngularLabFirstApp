@@ -40,14 +40,28 @@ export class LoginPage {
 
   onSubmit(event: Event) {
 
+
+
     event.preventDefault()
 
     if (this.form.valid) {
 
       this.authService.login(this.form.value as any)
         .subscribe(response => {
-            this.router.navigate(['/table'])
+          console.log('role',this.authService.role)
+            if(this.authService.role == 'STUDENT'){
+              this.router.navigate(['/student-table'])
+              console.log(response)
+            }
+          else if(this.authService.role == 'ADMIN'){
+            this.router.navigate(['/admin-table'])
             console.log(response)
+          }
+          else if(this.authService.role == 'TEACHER'){
+            this.router.navigate(['/teacher-table'])
+            console.log(response)
+          }
+
           }
         )
 
