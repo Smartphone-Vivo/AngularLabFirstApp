@@ -33,7 +33,7 @@ export class MatTableStudents implements OnInit, AfterViewInit {
 
 
 
-  displayedColumns: string[] = ['id', 'fio', 'group', 'phoneNumber', 'actions'];
+  displayedColumns: string[] = [];
   dataSource = new MatTableDataSource<Student>([]);
   private _liveAnnouncer = inject(LiveAnnouncer);
 
@@ -58,7 +58,7 @@ export class MatTableStudents implements OnInit, AfterViewInit {
       this.dataSource.sort = this.sort;
 
       this.loadTableWithFiltering(this.defaultName);
-      console.log("изменения пагинатора", this.currentPage, this.pageSize)
+      // console.log("изменения пагинатора", this.currentPage, this.pageSize)
     });
   }
 
@@ -70,10 +70,13 @@ export class MatTableStudents implements OnInit, AfterViewInit {
 
   checkRole(){
     if(this.role == 'ADMIN'){
-      this.displayedColumns = ['id', 'fio', 'group', 'phoneNumber', 'actions']
+      return this.displayedColumns = ['id', 'fio', 'group', 'phoneNumber', 'actions']
     }
-    if(this.role == 'STUDENT'){
-      this.displayedColumns = ['id', 'fio', 'group', 'phoneNumber']
+    else if (this.role == 'STUDENT'){
+      return this.displayedColumns = ['id', 'fio', 'group', 'phoneNumber']
+    }
+    else{
+      return this.displayedColumns = ['id', 'fio', 'group']
     }
 
   }
@@ -86,7 +89,7 @@ export class MatTableStudents implements OnInit, AfterViewInit {
     this.baseService.getFilteringStudents(name, this.currentPage, this.pageSize, this.sortBy)
       .subscribe((response : any) =>{
           this.dataSource.data = response.content
-          console.log('жимолость', this.dataSource.data, response.content)
+          // console.log('жимолость', this.dataSource.data, response.content)
           this.paginator.length = response.totalElements
       }
       )
@@ -114,18 +117,35 @@ export class MatTableStudents implements OnInit, AfterViewInit {
   }
 
   editStudent(student: Student) {
+    console.log('че в edit отправили')
     const dialogRef = this.dialog.open(DialogEditWrapper, {
       width: '350px',
       data: {...student}
     });
 
-    dialogRef.afterClosed().subscribe((result: Student | undefined) => {
-      if (result && result.fio && result.group) {
+
+    dialogRef.afterClosed().subscribe((result: Student) => {
+
+      //    dialogRef.afterClosed().subscribe((result: Student | undefined) => {
+      // if (result && result.fio && result.group) {
+      //
+      //   this.baseService.editStudent(result).subscribe(() => {
+      //     this.loadTableWithFiltering(this.defaultName);
+      //   });
+      // }
+
+
+
         this.baseService.editStudent(result).subscribe(() => {
           this.loadTableWithFiltering(this.defaultName);
+          console.log(result, 'че из эдита получаем')
         });
-      }
+
     });
+
+
+
+
   }
 
 
@@ -134,10 +154,10 @@ export class MatTableStudents implements OnInit, AfterViewInit {
     // multiple language, you would internationalize these strings.
     // Furthermore, you can customize the message to add additional
     // details about the values being sorted.
-    console.log("sort", sortState.direction, sortState.active)
+    // console.log("sort", sortState.direction, sortState.active)
 
     this.sortBy = `${sortState.active},${sortState.direction}`
-    console.log(this.sortBy)
+    // console.log(this.sortBy)
     this.loadTableWithFiltering(this.defaultName);
 
 

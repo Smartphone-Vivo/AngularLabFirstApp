@@ -38,7 +38,7 @@ export class AuthService {
   http = inject(HttpClient)
 
   login(payload:{username: string, password: string}){
-    console.log('huuuuuuuuuuuuuui',payload, 'login')
+    // console.log('huuuuuuuuuuuuuui',payload, 'login')
     return this.http.post<TokenResponse>(`http://localhost:8080/api/auth/login`,
       payload)
       .pipe(
@@ -46,7 +46,7 @@ export class AuthService {
           this.token = val.accessToken
           this.refreshToken = val.refreshToken
           this.role = this.getDecodedAccessToken(this.token).roles
-          
+
           this.cookieService.set('token', this.token)
           this.cookieService.set('refreshToken', this.refreshToken)
         })
@@ -54,7 +54,7 @@ export class AuthService {
   }
 
   register(payload:{username: string, password: string}){
-    console.log(payload, 'register')
+    // console.log(payload, 'register')
     return this.http.post(`http://localhost:8080/api/auth/register`, payload)
   }
 }
