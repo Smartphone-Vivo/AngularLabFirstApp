@@ -12,6 +12,7 @@ import {MatIcon} from '@angular/material/icon';
 import {FormsModule} from '@angular/forms';
 import {FilterStudents} from '../filter-students/filter-students';
 import {AuthService} from '../../auth/auth-service';
+import {CookieService} from 'ngx-cookie-service';
 
 /**
  * @title Table with pagination
@@ -29,16 +30,15 @@ export class MatTableStudents implements OnInit, AfterViewInit {
   defaultName = ""
   sortBy = "id,asc"
   sortType = ""
-  role = inject(AuthService).role
 
 
+  cookieService = inject(CookieService)
+
+  role = inject(AuthService).getRole()
 
   displayedColumns: string[] = [];
   dataSource = new MatTableDataSource<Student>([]);
   private _liveAnnouncer = inject(LiveAnnouncer);
-
-
-
 
   constructor(
     private baseService: BaseService,
@@ -82,7 +82,9 @@ export class MatTableStudents implements OnInit, AfterViewInit {
   }
 
   loadTableWithFiltering(name : string){
-    console.log(this.role, 'hjkm')
+
+    console.log(this.role, 'роль - loadTableWithFiltering')
+
     this.checkRole()
     this.defaultName = name
     console.log("loadtablewithfiltering", this.currentPage, this.pageSize)

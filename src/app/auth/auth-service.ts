@@ -1,4 +1,4 @@
-import {inject, Injectable} from '@angular/core';
+import {inject, Injectable, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {tap} from 'rxjs';
 import {TokenResponse} from './auth.interface';
@@ -8,7 +8,7 @@ import {jwtDecode} from 'jwt-decode';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthService{
   // http://localhost:8080/api/auth/login
   private springUrl = 'http://localhost:8080/api'
 
@@ -18,6 +18,8 @@ export class AuthService {
   token: string | null = null
   refreshToken: string | null = null
   role: string | null = null
+
+
 
   getDecodedAccessToken(token: string) : any{
     try {
@@ -35,6 +37,13 @@ export class AuthService {
     return !!this.token
   }
 
+  getRole(){
+    if(this.isAuth){
+      this.token = this.cookieService.get('token')
+      return this.getDecodedAccessToken(this.token).roles
+    }
+  }
+
   http = inject(HttpClient)
 
   login(payload:{username: string, password: string}){
@@ -45,6 +54,7 @@ export class AuthService {
         tap(val => {
           this.token = val.accessToken
           this.refreshToken = val.refreshToken
+
           this.role = this.getDecodedAccessToken(this.token).roles
 
           this.cookieService.set('token', this.token)
