@@ -27,12 +27,14 @@
       matInput>
   </mat-form-field>
 
-  <mat-form-field>
-    <mat-label class="input-label">Group</mat-label>
-    <input
-      formControlName="group"
-      matInput>
-  </mat-form-field>
+
+
+<!--  <mat-form-field>-->
+<!--    <mat-label class="input-label">Group</mat-label>-->
+<!--    <input-->
+<!--      formControlName="group"-->
+<!--      matInput>-->
+<!--  </mat-form-field>-->
   <br>
   <mat-form-field>
     <mat-label class="input-label">Enter your password</mat-label>
@@ -50,7 +52,22 @@
     </button>
   </mat-form-field>
 
-
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>Group</mat-label>
+      <input type="text"
+             placeholder="Pick one"
+             aria-label="Group"
+             matInput
+             [formControl]="myControl"
+             [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete">
+        @for (option of filteredOptions | async; track option) {
+          <mat-option [value]="option">{{option}}</mat-option>
+        }
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
 
 
   <br>

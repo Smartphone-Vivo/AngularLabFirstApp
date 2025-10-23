@@ -7,6 +7,9 @@ import {MatInputModule} from '@angular/material/input';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthService} from '../../auth/auth-service';
+import {MatAutocomplete, MatAutocompleteTrigger, MatOption} from '@angular/material/autocomplete';
+import {AsyncPipe} from '@angular/common';
+import {map, Observable, startWith} from 'rxjs';
 
 @Component({
   selector: 'app-register-page',
@@ -15,7 +18,11 @@ import {AuthService} from '../../auth/auth-service';
     MatIconModule,
     MatInputModule,
     MatButtonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatAutocompleteTrigger,
+    MatAutocomplete,
+    MatOption,
+    AsyncPipe
   ],
   templateUrl: './register-page.html',
   styleUrl: './register-page.scss'
@@ -42,6 +49,7 @@ export class RegisterPage {
     }
   )
 
+
   onSubmit(event: Event) {
 
     event.preventDefault()
@@ -65,6 +73,31 @@ export class RegisterPage {
     console.log('toLogin')
     this.router.navigate(['/login'])
   }
+
+
+
+
+
+
+  myControl = new FormControl('');
+  options: string[] = ['One', 'Two', 'Three'];
+  filteredOptions: Observable<string[]> | undefined;
+
+  ngOnInit() {
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value || '')),
+    );
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+  }
+
+
+
 
 }
 
