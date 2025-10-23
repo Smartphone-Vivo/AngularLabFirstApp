@@ -13,6 +13,7 @@ import {FormsModule} from '@angular/forms';
 import {FilterStudents} from '../filter-students/filter-students';
 import {AuthService} from '../../auth/auth-service';
 import {CookieService} from 'ngx-cookie-service';
+import {map} from 'rxjs';
 
 /**
  * @title Table with pagination
@@ -90,8 +91,14 @@ export class MatTableStudents implements OnInit, AfterViewInit {
     console.log("loadtablewithfiltering", this.currentPage, this.pageSize)
     this.baseService.getFilteringStudents(name, this.currentPage, this.pageSize, this.sortBy)
       .subscribe((response : any) =>{
+          // response.content.group = response.content.groups.groupName
           this.dataSource.data = response.content
-          // console.log('жимолость', this.dataSource.data, response.content)
+          // response.content.pipe(
+          //   map(val =>
+          //     console.log(val, 'жимолость')
+          //   )
+          // )
+          console.log('жимолость', this.dataSource.data, response.content)
           this.paginator.length = response.totalElements
       }
       )
@@ -104,7 +111,7 @@ export class MatTableStudents implements OnInit, AfterViewInit {
     })
 
     dialogRef.afterClosed().subscribe((result: Student) => {
-      if (result.fio != '' && result.group != '') {
+      if (result.fio != '') {
         this.baseService.addNewStudent(result).subscribe(() => {
           this.loadTableWithFiltering(this.defaultName);
         })

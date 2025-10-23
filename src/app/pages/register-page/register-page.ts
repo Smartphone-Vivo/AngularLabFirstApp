@@ -35,6 +35,9 @@ export class RegisterPage {
   form = new FormGroup(
     {
       username: new FormControl(null, Validators.required),
+      fio: new FormControl(null, Validators.required),
+      phoneNumber: new FormControl(null, Validators.required),
+      group: new FormControl(null, Validators.required),
       password: new FormControl(null, Validators.required)
     }
   )

@@ -39,6 +39,7 @@ export class DialogEditWrapper implements OnInit{
     @Inject(MAT_DIALOG_DATA) public data: Student)
   {
     if (data) {
+
       this.editingStudent = { ...data };
     } else {
       this.editingStudent = new Student(); // для Add

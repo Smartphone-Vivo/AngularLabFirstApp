@@ -4,6 +4,8 @@ import {tap} from 'rxjs';
 import {TokenResponse} from './auth.interface';
 import {CookieService} from 'ngx-cookie-service';
 import {jwtDecode} from 'jwt-decode';
+import {Router} from '@angular/router';
+import {FormControl, Validators} from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -13,13 +15,16 @@ export class AuthService{
   private springUrl = 'http://localhost:8080/api'
 
   cookieService = inject(CookieService)
-
+  router = inject(Router)
 
   token: string | null = null
   refreshToken: string | null = null
   role: string | null = null
 
-
+  logout(){
+    this.cookieService.deleteAll()
+    this.router.navigate(['/login'])
+  }
 
   getDecodedAccessToken(token: string) : any{
     try {
@@ -63,7 +68,13 @@ export class AuthService{
       )
   }
 
-  register(payload:{username: string, password: string}){
+  // username: new FormControl(null, Validators.required),
+  // fio: new FormControl(null, Validators.required),
+  // phoneNumber: new FormControl(null, Validators.required),
+  // group: new FormControl(null, Validators.required),
+  // password: new FormControl(null, Validators.required)
+
+  register(payload:{username: string, fio: string, phoneNumber: string, group: string, password: string,}){
     // console.log(payload, 'register')
     return this.http.post(`http://localhost:8080/api/auth/register`, payload)
   }

@@ -4,6 +4,7 @@ import {CookieService} from 'ngx-cookie-service';
 import {Router} from '@angular/router';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTableStudents} from '../../../components/mat-table-students/mat-table-students';
+import {AuthService} from '../../../auth/auth-service';
 
 @Component({
   selector: 'app-admin-table-page',
@@ -19,10 +20,9 @@ export class AdminTablePage {
 
   cookieService = inject(CookieService)
   router = inject(Router)
+  authService = inject(AuthService)
 
   logout(){
-    this.cookieService.deleteAll()
-    this.router.navigate(['/login'])
-
+    this.authService.logout()
   }
 }
