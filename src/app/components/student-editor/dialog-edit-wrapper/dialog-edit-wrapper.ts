@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, inject, Inject, OnInit} from '@angular/core';
 import {
   MAT_DIALOG_DATA,
   MatDialogActions,
@@ -11,6 +11,9 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatFormField} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
 import {MatButton} from '@angular/material/button';
+import {BaseService} from '../../../service/base-service';
+import {Group} from '../../../models/group';
+import {MatSelectModule} from '@angular/material/select';
 
 @Component({
   selector: 'app-dialog-edit-wrapper',
@@ -23,7 +26,8 @@ import {MatButton} from '@angular/material/button';
     MatButton,
     MatDialogActions,
     MatDialogContent,
-    MatDialogTitle
+    MatDialogTitle,
+    MatSelectModule,
   ],
   templateUrl: './dialog-edit-wrapper.html',
   styleUrl: './dialog-edit-wrapper.scss'
@@ -33,10 +37,14 @@ export class DialogEditWrapper implements OnInit{
 
   editingStudent: Student
 
+  baseService = inject(BaseService)
+  allGroups: Group[] = []
+
   //todo с группами заеб
 
   constructor(public dialogRef: MatDialogRef<DialogEditWrapper>,
     @Inject(MAT_DIALOG_DATA) public data: Student)
+
   {
     if (data) {
 
@@ -47,10 +55,20 @@ export class DialogEditWrapper implements OnInit{
   }
 
   ngOnInit() {
+    this.getAllGroups()
+    console.log(this.allGroups, 'allGroups')
   }
 
   onNoClick(){
     this.dialogRef.close()
+  }
+
+  getAllGroups(){
+    this.baseService.getAllGroups().subscribe((val : Group[]) =>{
+        this.allGroups.push(...val)
+        console.log(val, 'группы')
+      }
+    )
   }
 
 }

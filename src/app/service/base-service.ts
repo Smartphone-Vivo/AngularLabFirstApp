@@ -3,6 +3,7 @@ import {Student} from '../models/student';
 import {HttpClient} from "@angular/common/http";
 import {catchError, delay, firstValueFrom, map, Observable, tap, throwError} from "rxjs";
 import {MatTableStudents} from '../components/mat-table-students/mat-table-students';
+import {Group} from '../models/group';
 
 @Injectable({
   providedIn: 'root'
@@ -42,4 +43,7 @@ export class BaseService implements OnInit{
     return this.http.put<Student>(`${this.springUrl}`, student)
   }
 
+  getAllGroups(): Observable<Group[]>{
+    return this.http.get<Group[]>(`http://localhost:8080/api/base/group`)
+  }
 }

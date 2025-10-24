@@ -19,14 +19,24 @@
     <input matInput type="text" placeholder="phoneNumber"
            [(ngModel)]="editingStudent.phone_number" required>
   </mat-form-field>
-  <mat-form-field class="full-width-input">
-    <input matInput type="text" placeholder="group"
-           [(ngModel)]="editingStudent.groups.id" required>
+
+  <mat-form-field>
+    <mat-label>Group</mat-label>
+    <mat-select [(ngModel)]="editingStudent.groups.id" name="group">
+      @for (group of allGroups; track group) {
+        <mat-option [value]="group.id">{{group.groupName}}</mat-option>
+      }
+    </mat-select>
   </mat-form-field>
-  <mat-form-field class="full-width-input">
-    <input matInput type="text" placeholder="group"
-           [(ngModel)]="editingStudent.groups.groupName" required>
-  </mat-form-field>
+
+<!--  <mat-form-field class="full-width-input">-->
+<!--    <input matInput type="text" placeholder="group"-->
+<!--           [(ngModel)]="editingStudent.groups.id" required>-->
+<!--  </mat-form-field>-->
+<!--  <mat-form-field class="full-width-input">-->
+<!--    <input matInput type="text" placeholder="group"-->
+<!--           [(ngModel)]="editingStudent.groups.groupName" required>-->
+<!--  </mat-form-field>-->
   <mat-form-field class="full-width-input">
     <input matInput type="text" placeholder="group"
            [(ngModel)]="editingStudent.enable" required>

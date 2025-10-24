@@ -6,6 +6,8 @@ import {CookieService} from 'ngx-cookie-service';
 import {jwtDecode} from 'jwt-decode';
 import {Router} from '@angular/router';
 import {FormControl, Validators} from '@angular/forms';
+import {Group} from '../models/group';
+import {BaseService} from '../service/base-service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +22,7 @@ export class AuthService{
   token: string | null = null
   refreshToken: string | null = null
   role: string | null = null
+
 
   logout(){
     this.cookieService.deleteAll()
@@ -48,6 +51,7 @@ export class AuthService{
       return this.getDecodedAccessToken(this.token).roles
     }
   }
+
 
   http = inject(HttpClient)
 

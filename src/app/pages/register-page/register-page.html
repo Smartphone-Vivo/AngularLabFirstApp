@@ -52,22 +52,25 @@
     </button>
   </mat-form-field>
 
-  <form class="example-form">
-    <mat-form-field class="example-full-width">
-      <mat-label>Group</mat-label>
-      <input type="text"
-             placeholder="Pick one"
-             aria-label="Group"
-             matInput
-             [formControl]="myControl"
-             [matAutocomplete]="auto">
-      <mat-autocomplete #auto="matAutocomplete">
-        @for (option of filteredOptions | async; track option) {
-          <mat-option [value]="option">{{option}}</mat-option>
-        }
-      </mat-autocomplete>
-    </mat-form-field>
-  </form>
+<!--  <mat-form-field>-->
+<!--    <mat-label>Favorite food</mat-label>-->
+<!--    <mat-select>-->
+<!--      @for (group of foods; track food) {-->
+<!--        <mat-option [value]="food.value">{{food.viewValue}}</mat-option>-->
+<!--      }-->
+<!--    </mat-select>-->
+<!--  </mat-form-field>-->
+
+  <h4>Basic native select</h4>
+  <mat-form-field>
+    <mat-label>Cars</mat-label>
+    <select matNativeControl required>
+      <option value="volvo">Volvo</option>
+      <option value="saab">Saab</option>
+      <option value="mercedes">Mercedes</option>
+      <option value="audi">Audi</option>
+    </select>
+  </mat-form-field>
 
 
   <br>

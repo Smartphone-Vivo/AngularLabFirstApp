@@ -10,6 +10,7 @@ import {AuthService} from '../../auth/auth-service';
 import {MatAutocomplete, MatAutocompleteTrigger, MatOption} from '@angular/material/autocomplete';
 import {AsyncPipe} from '@angular/common';
 import {map, Observable, startWith} from 'rxjs';
+import {MatSelect} from '@angular/material/select';
 
 @Component({
   selector: 'app-register-page',
@@ -22,7 +23,8 @@ import {map, Observable, startWith} from 'rxjs';
     MatAutocompleteTrigger,
     MatAutocomplete,
     MatOption,
-    AsyncPipe
+    AsyncPipe,
+    // MatSelect
   ],
   templateUrl: './register-page.html',
   styleUrl: './register-page.scss'
@@ -31,6 +33,7 @@ export class RegisterPage {
 
   router= inject(Router)
   authService = inject(AuthService)
+
 
   hide = signal(true);
 
@@ -74,27 +77,16 @@ export class RegisterPage {
     this.router.navigate(['/login'])
   }
 
+  // foods: string[] = [
+  //   {value: 'steak-0', viewValue: 'Steak'},
+  //   {value: 'pizza-1', viewValue: 'Pizza'},
+  //   {value: 'tacos-2', viewValue: 'Tacos'},
+  // ];
 
 
 
 
 
-  myControl = new FormControl('');
-  options: string[] = ['One', 'Two', 'Three'];
-  filteredOptions: Observable<string[]> | undefined;
-
-  ngOnInit() {
-    this.filteredOptions = this.myControl.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value || '')),
-    );
-  }
-
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
-  }
 
 
 

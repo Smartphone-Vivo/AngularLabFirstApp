@@ -14,6 +14,7 @@ import {FilterStudents} from '../filter-students/filter-students';
 import {AuthService} from '../../auth/auth-service';
 import {CookieService} from 'ngx-cookie-service';
 import {map} from 'rxjs';
+import {Group} from '../../models/group';
 
 /**
  * @title Table with pagination
@@ -41,6 +42,8 @@ export class MatTableStudents implements OnInit, AfterViewInit {
   dataSource = new MatTableDataSource<Student>([]);
   private _liveAnnouncer = inject(LiveAnnouncer);
 
+
+
   constructor(
     private baseService: BaseService,
     public dialog: MatDialog
@@ -67,6 +70,7 @@ export class MatTableStudents implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.loadTableWithFiltering(this.defaultName);
+
   }
 
   checkRole(){
@@ -143,19 +147,14 @@ export class MatTableStudents implements OnInit, AfterViewInit {
       //   });
       // }
 
-
-
         this.baseService.editStudent(result).subscribe(() => {
           this.loadTableWithFiltering(this.defaultName);
-          console.log(result, 'че из эдита получаем')
+          // console.log(result, 'че из эдита получаем')
         });
 
     });
-
-
-
-
   }
+
 
 
   announceSortChange(sortState: Sort) {
