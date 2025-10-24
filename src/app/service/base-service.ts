@@ -48,7 +48,8 @@ export class BaseService implements OnInit{
       )
     }
     else{
-      return null
+      console.log(this.allGroups, 'baseservice not empty')
+      return this.allGroups
     }
 
   }

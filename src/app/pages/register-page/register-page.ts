@@ -1,16 +1,17 @@
 
-import {ChangeDetectionStrategy, Component, inject, signal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, OnInit, signal} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
-import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthService} from '../../auth/auth-service';
 import {MatAutocomplete, MatAutocompleteTrigger, MatOption} from '@angular/material/autocomplete';
 import {AsyncPipe} from '@angular/common';
 import {map, Observable, startWith} from 'rxjs';
 import {MatSelect} from '@angular/material/select';
+import {BaseService} from '../../service/base-service';
 
 @Component({
   selector: 'app-register-page',
@@ -24,16 +25,20 @@ import {MatSelect} from '@angular/material/select';
     MatAutocomplete,
     MatOption,
     AsyncPipe,
+    MatSelect,
+    FormsModule,
     // MatSelect
   ],
   templateUrl: './register-page.html',
   styleUrl: './register-page.scss'
 })
-export class RegisterPage {
+export class RegisterPage implements OnInit{
 
   router= inject(Router)
   authService = inject(AuthService)
+  baseService = inject(BaseService)
 
+  allGroups = this.baseService.allGroups
 
   hide = signal(true);
 
@@ -47,14 +52,19 @@ export class RegisterPage {
       username: new FormControl(null, Validators.required),
       fio: new FormControl(null, Validators.required),
       phoneNumber: new FormControl(null, Validators.required),
-      group: new FormControl(null, Validators.required),
-      password: new FormControl(null, Validators.required)
+      groupId: new FormControl(null, Validators.required),
+      password: new FormControl(null, Validators.required),
+
     }
   )
 
+  ngOnInit() {
+    this.baseService.getAllGroups()
+    console.log(this.allGroups, 'все группы')
+  }
 
   onSubmit(event: Event) {
-
+    console.log(this.form.value, 'группы')
     event.preventDefault()
 
     if (this.form.valid) {
@@ -64,12 +74,8 @@ export class RegisterPage {
             console.log(response)
           }
         )
-
-      console.log(this.form.value)
+      console.log( 'значение формы', this.form.value)
     }
-
-
-      console.log(this.form.value)
     }
 
   toLogin() {

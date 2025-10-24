@@ -18,6 +18,8 @@ export class AuthService{
 
   cookieService = inject(CookieService)
   router = inject(Router)
+  http = inject(HttpClient)
+
 
   token: string | null = null
   refreshToken: string | null = null
@@ -53,7 +55,7 @@ export class AuthService{
   }
 
 
-  http = inject(HttpClient)
+
 
   login(payload:{username: string, password: string}){
     // console.log('huuuuuuuuuuuuuui',payload, 'login')
@@ -78,8 +80,8 @@ export class AuthService{
   // group: new FormControl(null, Validators.required),
   // password: new FormControl(null, Validators.required)
 
-  register(payload:{username: string, fio: string, phoneNumber: string, group: string, password: string,}){
-    // console.log(payload, 'register')
+  register(payload:{fio: string, group: string, groupId: string, password: string, phoneNumber: string, username: string}){
+    console.log(payload, 'register')
     return this.http.post(`http://localhost:8080/api/auth/register`, payload)
   }
 }

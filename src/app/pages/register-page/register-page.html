@@ -27,7 +27,14 @@
       matInput>
   </mat-form-field>
 
-
+  <mat-form-field>
+    <mat-label>Group</mat-label>
+    <mat-select formControlName="groupId" name="group">
+      @for (group of allGroups; track group) {
+        <mat-option [value]="group.id">{{group.groupName}}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
 
 <!--  <mat-form-field>-->
 <!--    <mat-label class="input-label">Group</mat-label>-->
@@ -61,16 +68,9 @@
 <!--    </mat-select>-->
 <!--  </mat-form-field>-->
 
-  <h4>Basic native select</h4>
-  <mat-form-field>
-    <mat-label>Cars</mat-label>
-    <select matNativeControl required>
-      <option value="volvo">Volvo</option>
-      <option value="saab">Saab</option>
-      <option value="mercedes">Mercedes</option>
-      <option value="audi">Audi</option>
-    </select>
-  </mat-form-field>
+
+
+
 
 
   <br>
