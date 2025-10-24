@@ -16,7 +16,7 @@ export class BaseService implements OnInit{
 
   constructor(private http: HttpClient) {}
   ngOnInit() {
-    this.getAllGroups()
+
   }
 
   getFilteringStudents(name : string, pageNumber: number, pageSize: number, sortBy: string){
@@ -40,10 +40,16 @@ export class BaseService implements OnInit{
   }
 
   getAllGroups(){
-    return this.http.get<Group[]>(`http://localhost:8080/api/base/group`).subscribe((val : Group[]) =>{
-        this.allGroups.push(...val)
-        console.log(val, 'группы')
-      }
-    )
+    if(this.allGroups.length == 0){
+      return this.http.get<Group[]>(`http://localhost:8080/api/base/group`).subscribe((val : Group[]) =>{
+          this.allGroups.push(...val)
+          console.log(val, 'группы')
+        }
+      )
+    }
+    else{
+      return null
+    }
+
   }
 }
