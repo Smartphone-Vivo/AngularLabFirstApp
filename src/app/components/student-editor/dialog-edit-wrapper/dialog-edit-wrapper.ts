@@ -38,7 +38,8 @@ export class DialogEditWrapper implements OnInit{
   editingStudent: Student
 
   baseService = inject(BaseService)
-  allGroups: Group[] = []
+  allGroups = this.baseService.allGroups
+
 
   //todo с группами заеб
 
@@ -55,20 +56,14 @@ export class DialogEditWrapper implements OnInit{
   }
 
   ngOnInit() {
-    this.getAllGroups()
-    console.log(this.allGroups, 'allGroups')
+    this.baseService.getAllGroups()
+    console.log(this.allGroups, 'все группы')
   }
 
   onNoClick(){
     this.dialogRef.close()
   }
 
-  getAllGroups(){
-    this.baseService.getAllGroups().subscribe((val : Group[]) =>{
-        this.allGroups.push(...val)
-        console.log(val, 'группы')
-      }
-    )
-  }
+
 
 }

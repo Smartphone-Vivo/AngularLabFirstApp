@@ -10,22 +10,18 @@ import {Group} from '../models/group';
 })
 export class BaseService implements OnInit{
 
-  log: Student[] = []
-    private studentsUrl = 'api/students'
-    private jsonServerUrl = 'http://localhost:3000/students'
-    private mokkyDevUrl = 'https://d63e978222e08987.mokky.dev/students/'
-    private springUrl = 'http://localhost:8080/api/base/students'
-    // ссылка для пагинатора https://d63e978222e08987.mokky.dev/students/?page=1&limit=3
-    // Spring пагинатор https://localhost:8080/api/base/students?page=0&size=5
-    // Spring пагинатор   https://localhost:8080/api/base/students?page=1&size=5
+  private springUrl = 'http://localhost:8080/api/base/students'
+
+  allGroups: Group[] = []
+
   constructor(private http: HttpClient) {}
   ngOnInit() {
+    this.getAllGroups()
   }
 
   getFilteringStudents(name : string, pageNumber: number, pageSize: number, sortBy: string){
     return this.http.get<Student[]>(`http://localhost:8080/api/base/students/${pageNumber}/${pageSize}?name=${name}&sort=${sortBy}`)
   }
-
 
   addNewStudent(student:Student): Observable<Student>{
     console.log('addNewStudent', student.fio, student.id)
@@ -43,7 +39,11 @@ export class BaseService implements OnInit{
     return this.http.put<Student>(`${this.springUrl}`, student)
   }
 
-  getAllGroups(): Observable<Group[]>{
-    return this.http.get<Group[]>(`http://localhost:8080/api/base/group`)
+  getAllGroups(){
+    return this.http.get<Group[]>(`http://localhost:8080/api/base/group`).subscribe((val : Group[]) =>{
+        this.allGroups.push(...val)
+        console.log(val, 'группы')
+      }
+    )
   }
 }
