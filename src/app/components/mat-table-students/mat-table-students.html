@@ -10,6 +10,11 @@
       <td mat-cell *matCellDef="let student"> {{student.id}} </td>
     </ng-container>
 
+    <ng-container matColumnDef="username">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> username </th>
+      <td mat-cell *matCellDef="let student"> @{{student.username}} </td>
+    </ng-container>
+
     <!-- Name Column -->
     <ng-container matColumnDef="fio">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> fio </th>

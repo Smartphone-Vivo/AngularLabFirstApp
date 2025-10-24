@@ -75,13 +75,13 @@ export class MatTableStudents implements OnInit, AfterViewInit {
 
   checkRole(){
     if(this.role == 'ADMIN'){
-      return this.displayedColumns = ['id', 'fio', 'group', 'phoneNumber', 'actions']
+      return this.displayedColumns = ['id', 'username', 'fio', 'group', 'phoneNumber', 'actions']
     }
     else if (this.role == 'STUDENT'){
-      return this.displayedColumns = ['id', 'fio', 'group', 'phoneNumber']
+      return this.displayedColumns = ['id', 'username','fio', 'group', 'phoneNumber']
     }
     else{
-      return this.displayedColumns = ['id', 'fio', 'group']
+      return this.displayedColumns = ['id', 'username', 'fio', 'group']
     }
 
   }
