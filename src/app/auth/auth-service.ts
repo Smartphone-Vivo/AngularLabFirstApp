@@ -31,6 +31,8 @@ export class AuthService{
     this.router.navigate(['/login'])
   }
 
+
+
   getDecodedAccessToken(token: string) : any{
     try {
       return jwtDecode(token);
@@ -39,6 +41,7 @@ export class AuthService{
     }
   }
 
+
   get isAuth(){
     if(!this.token){
       this.token = this.cookieService.get('token')
@@ -46,6 +49,14 @@ export class AuthService{
     }
     return !!this.token
   }
+
+  getMe(){
+    if(this.isAuth){
+      this.token = this.cookieService.get('token')
+      return this.getDecodedAccessToken(this.token).id
+    }
+  }
+
 
   getRole(){
     if(this.isAuth){

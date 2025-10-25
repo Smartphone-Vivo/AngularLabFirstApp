@@ -19,8 +19,8 @@ export class BaseService implements OnInit{
 
   }
 
-  getFilteringStudents(name : string, pageNumber: number, pageSize: number, sortBy: string){
-    return this.http.get<Student[]>(`http://localhost:8080/api/base/students/${pageNumber}/${pageSize}?name=${name}&sort=${sortBy}`)
+  getFilteringStudents(name : string, userId : string, pageNumber: number, pageSize: number, sortBy: string){
+    return this.http.get<Student[]>(`http://localhost:8080/api/base/students/${userId}/${pageNumber}/${pageSize}?name=${name}&sort=${sortBy}`)
   }
 
   addNewStudent(student:Student): Observable<Student>{

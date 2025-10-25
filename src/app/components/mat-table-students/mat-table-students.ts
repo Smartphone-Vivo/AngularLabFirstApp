@@ -32,7 +32,7 @@ export class MatTableStudents implements OnInit, AfterViewInit {
   defaultName = ""
   sortBy = "id,asc"
   sortType = ""
-
+  userId = inject(AuthService).getMe()
 
   cookieService = inject(CookieService)
 
@@ -93,7 +93,7 @@ export class MatTableStudents implements OnInit, AfterViewInit {
     this.checkRole()
     this.defaultName = name
     console.log("loadtablewithfiltering", this.currentPage, this.pageSize)
-    this.baseService.getFilteringStudents(name, this.currentPage, this.pageSize, this.sortBy)
+    this.baseService.getFilteringStudents(name, this.userId, this.currentPage, this.pageSize, this.sortBy)
       .subscribe((response : any) =>{
           // response.content.group = response.content.groups.groupName
           this.dataSource.data = response.content
