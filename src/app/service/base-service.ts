@@ -23,6 +23,10 @@ export class BaseService implements OnInit{
     return this.http.get<Student[]>(`http://localhost:8080/api/base/students/${userId}/${pageNumber}/${pageSize}?name=${name}&sort=${sortBy}`)
   }
 
+  getCurrentUser(id : string){
+    return this.http.get<Student>(`http://localhost:8080/api/base/me/${id}`)
+  }
+
   addNewStudent(student:Student): Observable<Student>{
     console.log('addNewStudent', student.fio, student.id)
     //student.id = "5"

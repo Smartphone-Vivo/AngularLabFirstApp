@@ -1,5 +1,8 @@
+<app-user-info></app-user-info>
 
 <app-filter-students></app-filter-students>
+
+
 
 <div class="mat-elevation-z8">
   <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
@@ -24,12 +27,12 @@
     <!-- Weight Column -->
     <ng-container matColumnDef="group">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> group </th>
-      <td mat-cell *matCellDef="let student"> {{student.groups.groupName}} </td>
+      <td mat-cell *matCellDef="let student"> {{student.group}} </td>
     </ng-container>
 
     <ng-container matColumnDef="phoneNumber">
       <th mat-header-cell *matHeaderCellDef> phoneNumber </th>
-      <td mat-cell *matCellDef="let student"> {{student.phone_number}} </td>
+      <td mat-cell *matCellDef="let student"> {{student.phoneNumber}} </td>
     </ng-container>
 
     @if (role == 'ADMIN'){

@@ -5,10 +5,7 @@ export class Student{
     this.role = ""
     this.fio = ""
     this.phone_number = ""
-    this.groups = {
-      id: null,
-      groupName: ""
-    }
+    this.group = ""
     this.enable = true
   }
 
@@ -17,10 +14,7 @@ export class Student{
   role: string
   fio: string
   phone_number: string
-  groups: {
-    id: number | null
-    groupName: string
-  }
+  group: string
   enable: boolean
 
 }

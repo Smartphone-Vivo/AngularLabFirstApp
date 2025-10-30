@@ -15,6 +15,7 @@ import {AuthService} from '../../auth/auth-service';
 import {CookieService} from 'ngx-cookie-service';
 import {map} from 'rxjs';
 import {Group} from '../../models/group';
+import {UserInfo} from '../user-info/user-info';
 
 /**
  * @title Table with pagination
@@ -23,7 +24,7 @@ import {Group} from '../../models/group';
   selector: 'mat-table-students',
   styleUrl: 'mat-table-students.scss',
   templateUrl: 'mat-table-students.html',
-  imports: [MatTableModule, MatPaginatorModule, MatButtonModule, MatSortModule, MatIcon, FormsModule, FilterStudents],
+  imports: [MatTableModule, MatPaginatorModule, MatButtonModule, MatSortModule, MatIcon, FormsModule, FilterStudents, UserInfo],
 })
 export class MatTableStudents implements OnInit, AfterViewInit {
 
@@ -95,13 +96,9 @@ export class MatTableStudents implements OnInit, AfterViewInit {
     console.log("loadtablewithfiltering", this.currentPage, this.pageSize)
     this.baseService.getFilteringStudents(name, this.userId, this.currentPage, this.pageSize, this.sortBy)
       .subscribe((response : any) =>{
-          // response.content.group = response.content.groups.groupName
+          console.log('ответ',response.content)
           this.dataSource.data = response.content
-          // response.content.pipe(
-          //   map(val =>
-          //     console.log(val, 'жимолость')
-          //   )
-          // )
+
           console.log('жимолость', this.dataSource.data, response.content)
           this.paginator.length = response.totalElements
       }

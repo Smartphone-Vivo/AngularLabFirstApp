@@ -22,7 +22,7 @@
 
   <mat-form-field>
     <mat-label>Group</mat-label>
-    <mat-select [(ngModel)]="editingStudent.groups.id" name="group">
+    <mat-select [(ngModel)]="editingStudent.group" name="group">
       @for (group of allGroups; track group) {
         <mat-option [value]="group.id">{{group.groupName}}</mat-option>
       }
