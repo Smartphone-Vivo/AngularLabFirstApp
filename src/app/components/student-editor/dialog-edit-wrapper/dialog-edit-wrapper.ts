@@ -61,6 +61,7 @@ export class DialogEditWrapper implements OnInit{
   }
 
   onNoClick(){
+
     this.dialogRef.close()
   }
 

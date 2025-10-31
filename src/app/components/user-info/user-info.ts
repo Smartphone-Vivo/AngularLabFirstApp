@@ -34,8 +34,8 @@ export class UserInfo {
             id: val.id,
             username: val.username,
             fio: val.fio,
-            phoneNumber: val.phone_number,
-            groups: val.group
+            phoneNumber: val.phoneNumber,
+            // groups: val.group
           })
         }
       )
