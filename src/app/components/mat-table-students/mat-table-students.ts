@@ -12,6 +12,7 @@ import {FormsModule} from '@angular/forms';
 import {FilterStudents} from '../filter-students/filter-students';
 import {AuthService} from '../../auth/auth-service';
 import {UserInfo} from '../user-info/user-info';
+import {Group} from '../../models/group';
 
 @Component({
   selector: 'mat-table-students',
@@ -26,7 +27,8 @@ export class MatTableStudents implements OnInit, AfterViewInit {
   defaultName = ""
   sortBy = "id,asc"
   userId = inject(AuthService).getMe()
-
+  baseService = inject(BaseService)
+  allGroups = this.baseService.getAllGroups()
 
   role = inject(AuthService).getRole()
 
@@ -34,7 +36,7 @@ export class MatTableStudents implements OnInit, AfterViewInit {
   dataSource = new MatTableDataSource<Student>([]);
 
   constructor(
-    private baseService: BaseService,
+    // private baseService: BaseService,
     public dialog: MatDialog
   ) {
   }
@@ -57,18 +59,17 @@ export class MatTableStudents implements OnInit, AfterViewInit {
   ngOnInit() {
     this.loadTableWithFiltering(this.defaultName);
 
+    console.log('getAllGroups', this.allGroups)
   }
 
   checkRole(){
-    if(this.role == 'ADMIN'){
+    if(this.role != 'STUDENT'){
       return this.displayedColumns = ['id', 'username', 'fio', 'group', 'phoneNumber', 'actions']
     }
-    else if (this.role == 'STUDENT'){
+    else{
       return this.displayedColumns = ['id', 'username','fio', 'group', 'phoneNumber']
     }
-    else{
-      return this.displayedColumns = ['id', 'username', 'fio', 'group']
-    }
+
 
   }
 
@@ -97,7 +98,9 @@ export class MatTableStudents implements OnInit, AfterViewInit {
 
     dialogRef.afterClosed().subscribe((result: Student) => {
       if (result.fio != '') {
+        result.groupId = result.group.id
         this.baseService.addNewStudent(result).subscribe(() => {
+          console.log('добавление студента', result)
           this.loadTableWithFiltering(this.defaultName);
         })
       }

@@ -1,16 +1,25 @@
 <h1 mat-dialog-title style="text-align: center; margin-top: 30px">
-  {{ data ? 'Edit student' : 'Add student' }}
+  {{ data ? 'Edit' : 'Add new user' }}
 </h1>
 <div mat-dialog-content style="text-align: center; margin-top: 20px">
 
   <mat-form-field class="full-width-input" >
-    <input matInput type="text" placeholder="fio"
+    <input matInput type="text" placeholder="username"
            [(ngModel)]="editingStudent.username" required>
   </mat-form-field>
-  <mat-form-field class="full-width-input" >
-    <input matInput type="text" placeholder="fio"
-           [(ngModel)]="editingStudent.role" required>
-  </mat-form-field>
+
+  @if (role == 'ADMIN'){
+    <mat-form-field class="full-width-input" >
+      <input matInput type="text" placeholder="password"
+             [(ngModel)]="editingStudent.password" required>
+    </mat-form-field>
+
+    <mat-form-field class="full-width-input" >
+      <input matInput type="text" placeholder="role"
+             [(ngModel)]="editingStudent.role" required>
+    </mat-form-field>
+  }
+
   <mat-form-field class="full-width-input" >
     <input matInput type="text" placeholder="fio"
            [(ngModel)]="editingStudent.fio" required>
@@ -20,28 +29,21 @@
            [(ngModel)]="editingStudent.phoneNumber" required>
   </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Group</mat-label>
-    <mat-select [(ngModel)]="editingStudent.group.id" name="group">
-      @for (group of allGroups; track group) {
-        <mat-option [value]="group.id">{{group.groupName}}</mat-option>
-      }
-    </mat-select>
-  </mat-form-field>
+  @if (role == 'ADMIN'){
+    <mat-form-field>
+      <mat-label>Group</mat-label>
+      <mat-select [(ngModel)]="editingStudent.group.id" name="group">
+        @for (group of allGroups; track group) {
+          <mat-option [value]="group.id">{{group.groupName}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
 
-<!--  <mat-form-field class="full-width-input">-->
-<!--    <input matInput type="text" placeholder="group"-->
-<!--           [(ngModel)]="editingStudent.groups.id" required>-->
-<!--  </mat-form-field>-->
-<!--  <mat-form-field class="full-width-input">-->
-<!--    <input matInput type="text" placeholder="group"-->
-<!--           [(ngModel)]="editingStudent.groups.groupName" required>-->
-<!--  </mat-form-field>-->
-  <mat-form-field class="full-width-input">
-    <input matInput type="text" placeholder="group"
-           [(ngModel)]="editingStudent.enable" required>
-  </mat-form-field>
-
+    <mat-form-field class="full-width-input">
+      <input matInput type="text" placeholder="group"
+             [(ngModel)]="editingStudent.enable" required>
+    </mat-form-field>
+  }
 
 </div>
 <div mat-dialog-actions>

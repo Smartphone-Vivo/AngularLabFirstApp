@@ -53,7 +53,6 @@ export class UserInfo implements OnInit{
                     this.loadData()
                 }
             });
-
         });
     }
 

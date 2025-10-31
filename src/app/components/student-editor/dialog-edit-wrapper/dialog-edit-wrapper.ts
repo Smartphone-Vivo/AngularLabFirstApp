@@ -14,6 +14,7 @@ import {MatButton} from '@angular/material/button';
 import {BaseService} from '../../../service/base-service';
 import {Group} from '../../../models/group';
 import {MatSelectModule} from '@angular/material/select';
+import {AuthService} from '../../../auth/auth-service';
 
 @Component({
   selector: 'app-dialog-edit-wrapper',
@@ -39,7 +40,7 @@ export class DialogEditWrapper implements OnInit{
 
   baseService = inject(BaseService)
   allGroups = this.baseService.allGroups
-
+  role = inject(AuthService).getRole()
 
   //todo с группами заеб
 

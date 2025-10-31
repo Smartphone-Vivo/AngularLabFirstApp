@@ -30,7 +30,7 @@ export class BaseService implements OnInit{
   addNewStudent(student:Student): Observable<Student>{
     console.log('addNewStudent', student.fio, student.id)
     //student.id = "5"
-    return this.http.post<Student>(this.springUrl, student);
+    return this.http.post<Student>('http://localhost:8080/api/auth/register', student);
   }
 
   deleteStudent(student: Student): Observable<Student> {
