@@ -1,3 +1,17 @@
-<p>user-info works!</p>
 
-<div></div>
+<div class="user-block">
+    <div class="name-block">
+        <h4 class="fio">{{currentUser.fio}}</h4>
+        <h5 class="username">@{{currentUser.username}}</h5>
+    </div>
+    <div class="button-block">
+        <div class="mat-buttons">
+            <button (click)="editStudent(currentUser)" class="mat-button" matFab aria-label="Example icon button with a delete icon">
+                <mat-icon>edit</mat-icon>
+            </button>
+
+        </div>
+    </div>
+</div>
+
+

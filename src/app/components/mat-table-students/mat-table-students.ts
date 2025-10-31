@@ -7,19 +7,12 @@ import {MatDialog} from '@angular/material/dialog';
 import {DialogEditWrapper} from '../student-editor/dialog-edit-wrapper/dialog-edit-wrapper';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSort, MatSortModule, Sort} from '@angular/material/sort';
-import {LiveAnnouncer} from '@angular/cdk/a11y';
 import {MatIcon} from '@angular/material/icon';
 import {FormsModule} from '@angular/forms';
 import {FilterStudents} from '../filter-students/filter-students';
 import {AuthService} from '../../auth/auth-service';
-import {CookieService} from 'ngx-cookie-service';
-import {map} from 'rxjs';
-import {Group} from '../../models/group';
 import {UserInfo} from '../user-info/user-info';
 
-/**
- * @title Table with pagination
- */
 @Component({
   selector: 'mat-table-students',
   styleUrl: 'mat-table-students.scss',
@@ -32,18 +25,13 @@ export class MatTableStudents implements OnInit, AfterViewInit {
   currentPage = 0;
   defaultName = ""
   sortBy = "id,asc"
-  sortType = ""
   userId = inject(AuthService).getMe()
 
-  cookieService = inject(CookieService)
 
   role = inject(AuthService).getRole()
 
   displayedColumns: string[] = [];
   dataSource = new MatTableDataSource<Student>([]);
-  private _liveAnnouncer = inject(LiveAnnouncer);
-
-
 
   constructor(
     private baseService: BaseService,
@@ -63,11 +51,8 @@ export class MatTableStudents implements OnInit, AfterViewInit {
       this.dataSource.sort = this.sort;
 
       this.loadTableWithFiltering(this.defaultName);
-      // console.log("изменения пагинатора", this.currentPage, this.pageSize)
     });
   }
-
-  //todo при обновлении после логина табличка ломается
 
   ngOnInit() {
     this.loadTableWithFiltering(this.defaultName);
@@ -96,7 +81,6 @@ export class MatTableStudents implements OnInit, AfterViewInit {
     console.log("loadtablewithfiltering", this.currentPage, this.pageSize)
     this.baseService.getFilteringStudents(name, this.userId, this.currentPage, this.pageSize, this.sortBy)
       .subscribe((response : any) =>{
-          console.log('ответ',response.content)
           this.dataSource.data = response.content
 
           console.log('жимолость', this.dataSource.data, response.content)
@@ -127,7 +111,6 @@ export class MatTableStudents implements OnInit, AfterViewInit {
   }
 
   editStudent(student: Student) {
-    console.log('че в edit отправили')
     const dialogRef = this.dialog.open(DialogEditWrapper, {
       width: '350px',
       data: {...student}
@@ -135,18 +118,8 @@ export class MatTableStudents implements OnInit, AfterViewInit {
 
 
     dialogRef.afterClosed().subscribe((result: Student) => {
-      console.log('из диалогэдита пришло',result)
-      //    dialogRef.afterClosed().subscribe((result: Student | undefined) => {
-      // if (result && result.fio && result.group) {
-      //
-      //   this.baseService.editStudent(result).subscribe(() => {
-      //     this.loadTableWithFiltering(this.defaultName);
-      //   });
-      // }
-
         this.baseService.editStudent(result).subscribe(() => {
           this.loadTableWithFiltering(this.defaultName);
-          // console.log(result, 'че из эдита получаем')
         });
 
     });
@@ -155,22 +128,9 @@ export class MatTableStudents implements OnInit, AfterViewInit {
 
 
   announceSortChange(sortState: Sort) {
-    // This example uses English messages. If your application supports
-    // multiple language, you would internationalize these strings.
-    // Furthermore, you can customize the message to add additional
-    // details about the values being sorted.
-    // console.log("sort", sortState.direction, sortState.active)
-
     this.sortBy = `${sortState.active},${sortState.direction}`
-    // console.log(this.sortBy)
     this.loadTableWithFiltering(this.defaultName);
 
-
-    // if (sortState.direction) {
-    //   this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
-    // } else {
-    //   this._liveAnnouncer.announce('Sorting cleared');
-    // }
   }
 
 }
