@@ -5,7 +5,7 @@ export class Student{
     this.role = ""
     this.fio = ""
     this.phoneNumber = ""
-    this.groups = {
+    this.group = {
       id: null,
       groupName: ""
     }
@@ -17,7 +17,7 @@ export class Student{
   role: string
   fio: string
   phoneNumber: string
-  groups: {
+  group: {
     id: number | null
     groupName: string
   }

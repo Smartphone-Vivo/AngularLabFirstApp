@@ -135,7 +135,7 @@ export class MatTableStudents implements OnInit, AfterViewInit {
 
 
     dialogRef.afterClosed().subscribe((result: Student) => {
-
+      console.log('из диалогэдита пришло',result)
       //    dialogRef.afterClosed().subscribe((result: Student | undefined) => {
       // if (result && result.fio && result.group) {
       //

@@ -50,6 +50,7 @@ export class DialogEditWrapper implements OnInit{
     if (data) {
 
       this.editingStudent = { ...data };
+      console.log('editStudent111', this.editingStudent)
     } else {
       this.editingStudent = new Student(); // для Add
     }
