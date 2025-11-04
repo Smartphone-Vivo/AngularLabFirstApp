@@ -39,10 +39,15 @@
       </mat-select>
     </mat-form-field>
 
-    <mat-form-field class="full-width-input">
-      <input matInput type="text" placeholder="group"
-             [(ngModel)]="editingStudent.enable" required>
+    <mat-form-field>
+      <mat-label>Enable</mat-label>
+      <mat-select [(ngModel)]="editingStudent.enable" required>
+        @for (enbl of enable; track enbl) {
+          <mat-option [value]="enbl">{{enbl}}</mat-option>
+        }
+      </mat-select>
     </mat-form-field>
+
   }
 
 </div>

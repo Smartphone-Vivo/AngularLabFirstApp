@@ -2,8 +2,6 @@
 .user-block h5 {
   margin: 0;
   padding: 0;
-  margin-left: 20px;
-
 }
 
 .fio {
@@ -20,12 +18,28 @@
   height: 50px;
   border-radius: 15px;
   display: flex;
-
+  justify-content: center;
 }
 
 .mat-button{
   height: 40px;
   width: 40px;
-  margin-left: 10px;
-  margin-top: 5px;
+  border: none;
+  background-color: #ececec;
+}
+
+.text{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 10px;
+}
+
+.name-block {
+  margin-left: 0;
+}
+
+.button-block {
+  margin-right: 0;
 }
