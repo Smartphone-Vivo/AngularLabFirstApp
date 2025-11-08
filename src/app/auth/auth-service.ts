@@ -31,7 +31,23 @@ export class AuthService{
     this.router.navigate(['/login'])
   }
 
+  refreshAuthToken(){
 
+    if(!this.refreshToken){
+      this.refreshToken = this.cookieService.get('refreshToken')
+    }
+
+    return this.http.post<TokenResponse>(
+      `${this.springUrl}/auth/token`, {refreshToken : this.refreshToken})
+      .pipe(
+        tap(res => {
+          if (res.accessToken){
+            this.token = res.accessToken
+            this.cookieService.set('token', res.accessToken)
+          }
+        })
+      )
+  }
 
   getDecodedAccessToken(token: string) : any{
     try {
