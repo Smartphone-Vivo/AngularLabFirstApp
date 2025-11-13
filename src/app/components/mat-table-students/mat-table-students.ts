@@ -29,6 +29,7 @@ export class MatTableStudents implements OnInit, AfterViewInit {
   userId = inject(AuthService).getMe()
   baseService = inject(BaseService)
   allGroups = this.baseService.getAllGroups()
+  authService = inject(AuthService)
 
   role = inject(AuthService).getRole()
 
@@ -44,6 +45,10 @@ export class MatTableStudents implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   @ViewChild(MatSort) sort!: MatSort;
+
+  logout(){
+    this.authService.logout()
+  }
 
   ngAfterViewInit() {
     this.paginator.page.subscribe((event: PageEvent) => {

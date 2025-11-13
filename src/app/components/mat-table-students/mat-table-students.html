@@ -1,8 +1,16 @@
-<app-user-info></app-user-info>
-
-<app-filter-students></app-filter-students>
-
 <div class="mat-elevation-z8">
+
+  <div class="header-logout">
+    <h1>Student table</h1>
+    <button (click)="logout()" class="logout-button" matFab aria-label="Example icon button with a delete icon">
+      <mat-icon>logout</mat-icon>
+    </button>
+  </div>
+
+  <app-user-info></app-user-info>
+
+  <app-filter-students></app-filter-students>
+
   <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
 
     <!-- Position Column -->
