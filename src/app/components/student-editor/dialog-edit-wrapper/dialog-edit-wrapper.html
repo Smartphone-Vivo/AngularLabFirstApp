@@ -9,25 +9,27 @@
   </mat-form-field>
 
   @if (role == 'ADMIN'){
-    <mat-form-field class="full-width-input" >
-      <input matInput type="text" placeholder="password"
-             [(ngModel)]="editingStudent.password" required>
-    </mat-form-field>
-
+    @if (!data){
+      <mat-form-field class="full-width-input" >
+        <input matInput type="text" placeholder="password"
+               [(ngModel)]="editingStudent.password" required>
+      </mat-form-field>
+    }
     <mat-form-field class="full-width-input" >
       <input matInput type="text" placeholder="role"
              [(ngModel)]="editingStudent.role" required>
     </mat-form-field>
   }
 
-  <mat-form-field class="full-width-input" >
-    <input matInput type="text" placeholder="fio"
-           [(ngModel)]="editingStudent.fio" required>
-  </mat-form-field>
-  <mat-form-field class="full-width-input">
-    <input matInput type="text" placeholder="phoneNumber"
-           [(ngModel)]="editingStudent.phoneNumber" required>
-  </mat-form-field>
+  @if(editingStudent.role != 'ADMIN'){
+    <mat-form-field class="full-width-input" >
+      <input matInput type="text" placeholder="fio"
+             [(ngModel)]="editingStudent.fio" required>
+    </mat-form-field>
+    <mat-form-field class="full-width-input">
+      <input matInput type="text" placeholder="phoneNumber"
+             [(ngModel)]="editingStudent.phoneNumber" required>
+    </mat-form-field>
 
   @if (role == 'ADMIN'){
     <mat-form-field>
@@ -47,7 +49,7 @@
         }
       </mat-select>
     </mat-form-field>
-
+  }
   }
 
 </div>

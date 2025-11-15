@@ -42,7 +42,6 @@ export class DialogEditWrapper implements OnInit{
   allGroups = this.baseService.allGroups
   role = inject(AuthService).getRole()
   enable = ['true', 'false']
-  //todo с группами заеб
 
   constructor(public dialogRef: MatDialogRef<DialogEditWrapper>,
     @Inject(MAT_DIALOG_DATA) public data: Student)
