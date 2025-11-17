@@ -1,1 +1,20 @@
-<mat-table-students></mat-table-students>
+<mat-sidenav-container class="example-container">
+  <mat-sidenav class="show-sidebar" #sidenav mode="side" >
+    <div class="sidebar-content">
+      <h3 class="sidebar-header">Admin settings: </h3>
+      <button class="menu-button" matButton="text">Groups</button>
+      <button class="menu-button" matButton="text">Students</button>
+      <button class="menu-button" matButton="text">Teachers</button>
+
+    </div>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+
+    <p><button matButton (click)="sidenav.toggle()">
+      <mat-icon class="mat-button">menu</mat-icon>
+    </button></p>
+    <mat-table-students></mat-table-students>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+

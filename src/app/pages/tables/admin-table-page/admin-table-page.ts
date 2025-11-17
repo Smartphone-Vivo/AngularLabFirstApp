@@ -1,17 +1,25 @@
 import {Component, inject} from '@angular/core';
-import {MatFabButton} from '@angular/material/button';
+import {MatButton, MatFabButton} from '@angular/material/button';
 import {CookieService} from 'ngx-cookie-service';
 import {Router} from '@angular/router';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTableStudents} from '../../../components/mat-table-students/mat-table-students';
 import {AuthService} from '../../../auth/auth-service';
-
+import {MatButtonModule} from '@angular/material/button';
+import {FormsModule} from '@angular/forms';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatSidenavModule} from '@angular/material/sidenav';
 @Component({
   selector: 'app-admin-table-page',
   imports: [
     MatFabButton,
     MatIconModule,
-    MatTableStudents
+    MatTableStudents,
+    MatButton,
+    MatSidenavModule,
+    MatCheckboxModule,
+    FormsModule,
+    MatButtonModule
   ],
   templateUrl: './admin-table-page.html',
   styleUrl: './admin-table-page.scss'
