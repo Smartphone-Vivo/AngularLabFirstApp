@@ -48,12 +48,12 @@
 
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef> Actions </th>
-        <td mat-cell *matCellDef="let element">
+        <td mat-cell *matCellDef="let group">
           <div class="mat-buttons">
-            <button (click)="editGroup()" class="mat-button" matFab aria-label="Example icon button with a delete icon">
+            <button (click)="editGroup(group)" class="mat-button" matFab aria-label="Example icon button with a delete icon">
               <mat-icon>edit</mat-icon>
             </button>
-            <button (click)="deleteGroup()" class="mat-button" matFab aria-label="Example icon button with a delete icon">
+            <button (click)="deleteGroup(group)" class="mat-button" matFab aria-label="Example icon button with a delete icon">
               <mat-icon>delete</mat-icon>
             </button>
           </div>

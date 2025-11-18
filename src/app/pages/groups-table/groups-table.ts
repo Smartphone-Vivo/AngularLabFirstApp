@@ -71,11 +71,17 @@ export class GroupsTable implements OnInit{
 
   }
 
-  editGroup() {
+  editGroup(group: Group) {
 
   }
 
-  deleteGroup() {
-
+  deleteGroup(group: Group) {
+    console.log('deleteGroup', group.id)
+    if(group.id != null){
+      this.baseService.deleteGroup(group.id).subscribe()
+      this.loadGroups()
   }
+
+}
+
 }

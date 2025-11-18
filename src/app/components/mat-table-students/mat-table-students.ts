@@ -37,7 +37,6 @@ export class MatTableStudents implements OnInit, AfterViewInit {
   dataSource = new MatTableDataSource<Student>([]);
 
   constructor(
-    // private baseService: BaseService,
     public dialog: MatDialog
   ) {
   }
@@ -74,8 +73,6 @@ export class MatTableStudents implements OnInit, AfterViewInit {
     else{
       return this.displayedColumns = ['id', 'username','fio', 'group', 'phoneNumber']
     }
-
-
   }
 
   loadTableWithFiltering(name : string){
@@ -88,8 +85,6 @@ export class MatTableStudents implements OnInit, AfterViewInit {
     this.baseService.getFilteringStudents(name, this.userId, this.currentPage, this.pageSize, this.sortBy)
       .subscribe((response : any) =>{
           this.dataSource.data = response.content
-
-          console.log('жимолость', this.dataSource.data, response.content)
           this.paginator.length = response.totalElements
       }
       )
@@ -103,9 +98,8 @@ export class MatTableStudents implements OnInit, AfterViewInit {
 
     dialogRef.afterClosed().subscribe((result: Student) => {
       if (result.fio != '') {
-        result.groupId = result.groups.id
+        result.groupId = result.group.id
         this.baseService.addNewStudent(result).subscribe(() => {
-          console.log('добавление студента', result)
           this.loadTableWithFiltering(this.defaultName);
         })
       }
@@ -133,12 +127,9 @@ export class MatTableStudents implements OnInit, AfterViewInit {
     });
   }
 
-
-
   announceSortChange(sortState: Sort) {
     this.sortBy = `${sortState.active},${sortState.direction}`
     this.loadTableWithFiltering(this.defaultName);
-
   }
 
 }

@@ -77,4 +77,15 @@ export class BaseService implements OnInit{
     const role = this.authService.getRole().toLowerCase()
     return this.http.post<Group>(`http://localhost:8080/api/${role}/group`, group)
   }
+
+
+  updateGroup(group: Group){
+    const role = this.authService.getRole().toLowerCase()
+    return this.http.put<Group>(`http://localhost:8080/api/${role}/group`, group)
+  }
+
+  deleteGroup(id: number){
+    const role = this.authService.getRole().toLowerCase()
+    return this.http.delete(`http://localhost:8080/api/${role}/group/${id}`)
+  }
 }

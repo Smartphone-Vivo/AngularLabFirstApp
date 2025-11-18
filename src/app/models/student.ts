@@ -6,7 +6,7 @@ export class Student{
     this.fio = ""
     this.phoneNumber = ""
     this.groupId = null
-    this.groups = {
+    this.group = {
       id: null,
       groupName: ""
     }
@@ -20,7 +20,7 @@ export class Student{
   fio: string
   phoneNumber: string
   groupId: number | null
-  groups: {
+  group: {
     id: number | null
     groupName: string
   }
