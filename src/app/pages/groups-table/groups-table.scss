@@ -66,3 +66,17 @@ table {
   margin-left: 10px;
 
 }
+
+.header-logout{
+  display: flex;
+  justify-content: space-between;
+}
+
+.logout-button{
+  margin-top: 20px;
+  height: 40px;
+  width: 40px;
+  color-scheme: primary;
+  margin-right: 40px;
+}
+

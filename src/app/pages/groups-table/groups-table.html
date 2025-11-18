@@ -1,4 +1,3 @@
-<h1>Groups table</h1>
 
 
 <mat-sidenav-container class="example-container">
@@ -17,6 +16,23 @@
     <p><button matButton (click)="sidenav.toggle()">
       <mat-icon class="mat-button">menu</mat-icon>
     </button></p>
+
+    <div class="header-logout">
+      <h1>Groups table</h1>
+      <button (click)="logout()" class="logout-button" matFab aria-label="Example icon button with a delete icon">
+        <mat-icon>logout</mat-icon>
+      </button>
+    </div>
+
+
+    <h3>Add new group:</h3>
+    <mat-form-field class="search-input" >
+      <input matInput type="text" placeholder="Add new group:" [(ngModel)]="title" required><br>
+    </mat-form-field>
+
+    <button (click)="addNewGroup()" class="search-button" matFab aria-label="Example icon button with a delete icon">
+      <mat-icon>add</mat-icon>
+    </button>
 
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 

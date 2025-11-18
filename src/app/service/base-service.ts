@@ -67,4 +67,10 @@ export class BaseService implements OnInit{
     }
 
   }
+
+  addNewGroup(group: Group){
+    console.log('addNewGroup', group)
+    const role = this.authService.getRole().toLowerCase()
+    return this.http.post<Group>(`http://localhost:8080/api/${role}/group`, group)
+  }
 }
