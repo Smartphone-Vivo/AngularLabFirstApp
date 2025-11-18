@@ -58,7 +58,7 @@ export class DialogEditWrapper implements OnInit{
 
   ngOnInit() {
     this.baseService.getAllGroups()
-
+    console.log('группы',this.baseService.getAllGroups())
   }
 
   onNoClick(){

@@ -103,7 +103,7 @@ export class MatTableStudents implements OnInit, AfterViewInit {
 
     dialogRef.afterClosed().subscribe((result: Student) => {
       if (result.fio != '') {
-        result.groupId = result.group.id
+        result.groupId = result.groups.id
         this.baseService.addNewStudent(result).subscribe(() => {
           console.log('добавление студента', result)
           this.loadTableWithFiltering(this.defaultName);

@@ -11,7 +11,7 @@ import {AuthService} from '../../../auth/auth-service';
   imports: [
     MatFabButton,
     MatIconModule,
-    MatTableStudents
+    MatTableStudents,
   ],
   templateUrl: './student-table-page.html',
   styleUrl: './student-table-page.scss'
