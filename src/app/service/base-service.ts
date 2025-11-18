@@ -53,7 +53,7 @@ export class BaseService implements OnInit{
     return this.http.put<Student>(`http://localhost:8080/api/${role}/me`, student)
   }
 
-  getAllGroups(){
+  getAllGroups1(){
     if(this.allGroups.length == 0){
       return this.http.get<Group[]>(`http://localhost:8080/api/auth/group`).subscribe((val : Group[]) =>{
           this.allGroups.push(...val)
@@ -66,6 +66,10 @@ export class BaseService implements OnInit{
       return this.allGroups
     }
 
+  }
+
+  getAllGroups(){
+    return this.http.get<Group[]>(`http://localhost:8080/api/auth/group`)
   }
 
   addNewGroup(group: Group){

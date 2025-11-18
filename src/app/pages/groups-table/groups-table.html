@@ -30,7 +30,7 @@
       <input matInput type="text" placeholder="Add new group:" [(ngModel)]="title" required><br>
     </mat-form-field>
 
-    <button (click)="addNewGroup()" class="search-button" matFab aria-label="Example icon button with a delete icon">
+    <button (click)="addNewGroup()" class="add-button" matFab aria-label="Example icon button with a delete icon">
       <mat-icon>add</mat-icon>
     </button>
 
@@ -44,6 +44,20 @@
       <ng-container matColumnDef="groupName">
         <th mat-header-cell *matHeaderCellDef> Group name </th>
         <td mat-cell *matCellDef="let element"> {{element.groupName}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let element">
+          <div class="mat-buttons">
+            <button (click)="editGroup()" class="mat-button" matFab aria-label="Example icon button with a delete icon">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button (click)="deleteGroup()" class="mat-button" matFab aria-label="Example icon button with a delete icon">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </td>
       </ng-container>
 
 

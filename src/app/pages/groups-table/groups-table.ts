@@ -24,7 +24,7 @@ export class GroupsTable implements OnInit{
 
   baseService = inject(BaseService)
   allGroups = this.baseService.getAllGroups()
-  displayedColumns: string[] = ['id', 'groupName'];
+  displayedColumns: string[] = ['id', 'groupName', 'actions'];
   authService = inject(AuthService)
 
   dataSource = new MatTableDataSource<Group>()
@@ -43,7 +43,10 @@ export class GroupsTable implements OnInit{
   }
 
   loadGroups(){
-      this.dataSource.data = this.baseService.allGroups
+    this.baseService.getAllGroups().subscribe(val => {
+        this.dataSource.data = val
+      }
+    )
   }
 
   toGroupsTable(){
@@ -65,6 +68,14 @@ export class GroupsTable implements OnInit{
         this.loadGroups
       )
     }
+
+  }
+
+  editGroup() {
+
+  }
+
+  deleteGroup() {
 
   }
 }

@@ -80,3 +80,23 @@ table {
   margin-right: 40px;
 }
 
+.mat-button{
+  height: 40px;
+  width: 40px;
+}
+
+.add-button{
+  height: 40px;
+  width: 40px;
+  margin-left: 20px;
+}
+
+.mat-buttons{
+  display: grid;
+  grid-template-columns: 10px 10px;
+  grid-gap: 50px;
+}
+
+.search-input{
+  height: 70px;
+}

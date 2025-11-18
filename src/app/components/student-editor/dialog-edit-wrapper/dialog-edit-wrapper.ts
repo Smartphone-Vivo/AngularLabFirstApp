@@ -39,7 +39,7 @@ export class DialogEditWrapper implements OnInit{
   editingStudent: Student
 
   baseService = inject(BaseService)
-  allGroups = this.baseService.allGroups
+  allGroups: Group[] = []
   role = inject(AuthService).getRole()
   enable = ['true', 'false']
 
@@ -57,15 +57,18 @@ export class DialogEditWrapper implements OnInit{
   }
 
   ngOnInit() {
-    this.baseService.getAllGroups()
-    console.log('группы',this.baseService.getAllGroups())
+    this.getAllGroups()
+    console.log('группы',this.getAllGroups())
   }
 
   onNoClick(){
-
     this.dialogRef.close()
   }
 
-
-
+  getAllGroups(){
+    return this.baseService.getAllGroups()
+      .subscribe(val =>
+        this.allGroups = val
+      )
+  }
 }
