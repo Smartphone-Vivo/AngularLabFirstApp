@@ -15,6 +15,7 @@ import {BaseService} from '../../../service/base-service';
 import {Group} from '../../../models/group';
 import {MatSelectModule} from '@angular/material/select';
 import {AuthService} from '../../../auth/auth-service';
+import {GroupService} from '../../../service/group-service';
 
 @Component({
   selector: 'app-dialog-edit-wrapper',
@@ -38,7 +39,8 @@ export class DialogEditWrapper implements OnInit{
 
   editingStudent: Student
 
-  baseService = inject(BaseService)
+  groupService = inject(GroupService)
+
   allGroups: Group[] = []
   role = inject(AuthService).getRole()
   enable = ['true', 'false']
@@ -66,7 +68,7 @@ export class DialogEditWrapper implements OnInit{
   }
 
   getAllGroups(){
-    return this.baseService.getAllGroups()
+    return this.groupService.getAllGroups()
       .subscribe(val =>
         this.allGroups = val
       )

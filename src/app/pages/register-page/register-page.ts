@@ -9,6 +9,7 @@ import {AuthService} from '../../auth/auth-service';
 import {MatOption} from '@angular/material/autocomplete';
 import {MatSelect} from '@angular/material/select';
 import {BaseService} from '../../service/base-service';
+import {GroupService} from '../../service/group-service';
 
 @Component({
   selector: 'app-register-page',
@@ -30,8 +31,9 @@ export class RegisterPage implements OnInit{
   router= inject(Router)
   authService = inject(AuthService)
   baseService = inject(BaseService)
+  groupService = inject(GroupService)
 
-  allGroups = this.baseService.allGroups
+  allGroups = this.groupService.allGroups
 
   hide = signal(true);
 
@@ -52,7 +54,7 @@ export class RegisterPage implements OnInit{
   )
 
   ngOnInit() {
-    this.baseService.getAllGroups()
+    this.groupService.getAllGroups()
     console.log(this.allGroups, 'все группы')
   }
 

@@ -13,6 +13,7 @@ import {MatFormField} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
 import {MatDialog} from '@angular/material/dialog';
 import {DialogEditGroup} from './dialog-edit-group/dialog-edit-group';
+import {GroupService} from '../../service/group-service';
 
 @Component({
   selector: 'app-groups-table',
@@ -23,7 +24,8 @@ import {DialogEditGroup} from './dialog-edit-group/dialog-edit-group';
 export class GroupsTable implements OnInit{
 
   baseService = inject(BaseService)
-  allGroups = this.baseService.getAllGroups()
+  groupService = inject(GroupService)
+  allGroups = this.groupService.getAllGroups()
   displayedColumns: string[] = ['id', 'groupName', 'actions'];
   authService = inject(AuthService)
 
@@ -44,7 +46,7 @@ export class GroupsTable implements OnInit{
   }
 
   loadGroups(){
-    this.baseService.getAllGroups().subscribe(val => {
+    this.groupService.getAllGroups().subscribe(val => {
         this.dataSource.data = val
       }
     )
@@ -65,8 +67,13 @@ export class GroupsTable implements OnInit{
       this.newGroup.groupName = this.title
       this.newGroup.id = null
 
-      this.baseService.addNewGroup(this.newGroup).subscribe(
-        this.loadGroups
+      this.groupService.addNewGroup(this.newGroup).subscribe({
+        next:()=> {
+          this.loadGroups()
+      }
+      }
+
+
       )
     }
 
@@ -91,10 +98,12 @@ export class GroupsTable implements OnInit{
   deleteGroup(group: Group) {
     console.log('deleteGroup', group.id)
     if(group.id != null){
-      this.baseService.deleteGroup(group.id).subscribe()
-      this.loadGroups()
+      this.groupService.deleteGroup(group.id).subscribe({
+          next:() => {
+            this.loadGroups()
+          }
+        })
+    }
   }
-
-}
 
 }

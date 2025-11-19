@@ -9,20 +9,14 @@ import {AuthService} from '../auth/auth-service';
 @Injectable({
   providedIn: 'root'
 })
-export class BaseService implements OnInit{
+export class BaseService{
 
-  private springUrl = 'http://localhost:8080/api/base/students'
+  private springUrl = 'http://localhost:8080/api'
 
+  http = inject(HttpClient)
   authService = inject(AuthService)
 
-  allGroups: Group[] = []
 
-
-
-  constructor(private http: HttpClient) {}
-  ngOnInit() {
-
-  }
 
   getFilteringStudents(name : string, userId : string, pageNumber: number, pageSize: number, sortBy: string){
     const role = this.authService.getRole().toLowerCase()
@@ -50,42 +44,13 @@ export class BaseService implements OnInit{
   editStudent(student: Student){
     console.log('editStudent')
     const role = this.authService.getRole().toLowerCase()
+    return this.http.put<Student>(`http://localhost:8080/api/${role}/students`, student)
+  }
+
+  editCurrentUser(student: Student){
+    const role = this.authService.getRole().toLowerCase()
     return this.http.put<Student>(`http://localhost:8080/api/${role}/me`, student)
   }
 
-  getAllGroups1(){
-    if(this.allGroups.length == 0){
-      return this.http.get<Group[]>(`http://localhost:8080/api/auth/group`).subscribe((val : Group[]) =>{
-          this.allGroups.push(...val)
-          console.log(val, 'группы')
-        }
-      )
-    }
-    else{
-      console.log(this.allGroups, 'baseservice not empty')
-      return this.allGroups
-    }
 
-  }
-
-  getAllGroups(){
-    return this.http.get<Group[]>(`http://localhost:8080/api/auth/group`)
-  }
-
-  addNewGroup(group: Group){
-    console.log('addNewGroup', group)
-    const role = this.authService.getRole().toLowerCase()
-    return this.http.post<Group>(`http://localhost:8080/api/${role}/group`, group)
-  }
-
-
-  updateGroup(group: Group){
-    const role = this.authService.getRole().toLowerCase()
-    return this.http.put<Group>(`http://localhost:8080/api/${role}/group`, group)
-  }
-
-  deleteGroup(id: number){
-    const role = this.authService.getRole().toLowerCase()
-    return this.http.delete(`http://localhost:8080/api/${role}/group/${id}`)
-  }
 }

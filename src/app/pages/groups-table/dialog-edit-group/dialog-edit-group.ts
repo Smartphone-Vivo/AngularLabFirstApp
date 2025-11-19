@@ -15,8 +15,6 @@ import {MatInputModule} from '@angular/material/input';
 import {GroupsTable} from '../groups-table';
 import {Group} from '../../../models/group';
 
-class DialogData {
-}
 
 @Component({
   selector: 'app-dialog-edit-group',
@@ -32,9 +30,9 @@ export class DialogEditGroup {
 
   constructor(
     public dialogRef: MatDialogRef<DialogEditGroup>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData
+    @Inject(MAT_DIALOG_DATA) public data: string
   ) {
-    this.groupName = data.groupName;
+    this.groupName = data;
   }
 
   onNoClick() {

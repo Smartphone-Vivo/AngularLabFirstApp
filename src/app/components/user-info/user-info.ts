@@ -45,7 +45,7 @@ export class UserInfo implements OnInit{
         });
 
         dialogRef.afterClosed().subscribe((result: Student) => {
-            this.baseService.editStudent(result).subscribe({
+            this.baseService.editCurrentUser(result).subscribe({
                 next: () => {
                     this.loadData()
                 }
