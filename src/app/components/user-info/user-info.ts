@@ -1,9 +1,7 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {BaseService} from '../../service/base-service';
 import {AuthService} from '../../auth/auth-service';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Student} from '../../models/student';
-import {MatFabButton} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {MatTableStudents} from "../mat-table-students/mat-table-students";
 import {DialogEditWrapper} from "../student-editor/dialog-edit-wrapper/dialog-edit-wrapper";
@@ -12,7 +10,6 @@ import {MatDialog} from "@angular/material/dialog";
 @Component({
   selector: 'app-user-info',
     imports: [
-        MatFabButton,
         MatIconModule
     ],
   templateUrl: './user-info.html',

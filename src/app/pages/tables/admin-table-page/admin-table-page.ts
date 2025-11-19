@@ -1,5 +1,5 @@
 import {Component, inject} from '@angular/core';
-import {MatButton, MatFabButton} from '@angular/material/button';
+import {MatButton} from '@angular/material/button';
 import {CookieService} from 'ngx-cookie-service';
 import {Router} from '@angular/router';
 import {MatIconModule} from '@angular/material/icon';
@@ -12,7 +12,6 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 @Component({
   selector: 'app-admin-table-page',
   imports: [
-    MatFabButton,
     MatIconModule,
     MatTableStudents,
     MatButton,

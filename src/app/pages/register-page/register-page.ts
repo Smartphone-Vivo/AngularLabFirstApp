@@ -1,5 +1,4 @@
-
-import {ChangeDetectionStrategy, Component, inject, OnInit, signal} from '@angular/core';
+import {Component, inject, OnInit, signal} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
@@ -7,9 +6,7 @@ import {MatInputModule} from '@angular/material/input';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthService} from '../../auth/auth-service';
-import {MatAutocomplete, MatAutocompleteTrigger, MatOption} from '@angular/material/autocomplete';
-import {AsyncPipe} from '@angular/common';
-import {map, Observable, startWith} from 'rxjs';
+import {MatOption} from '@angular/material/autocomplete';
 import {MatSelect} from '@angular/material/select';
 import {BaseService} from '../../service/base-service';
 
@@ -21,13 +18,9 @@ import {BaseService} from '../../service/base-service';
     MatInputModule,
     MatButtonModule,
     ReactiveFormsModule,
-    MatAutocompleteTrigger,
-    MatAutocomplete,
     MatOption,
-    AsyncPipe,
     MatSelect,
     FormsModule,
-    // MatSelect
   ],
   templateUrl: './register-page.html',
   styleUrl: './register-page.scss'

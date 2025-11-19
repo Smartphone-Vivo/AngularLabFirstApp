@@ -1,5 +1,4 @@
 import {Component, inject} from '@angular/core';
-import {MatFabButton} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTableStudents} from '../../../components/mat-table-students/mat-table-students';
 import {CookieService} from 'ngx-cookie-service';
@@ -9,7 +8,6 @@ import {AuthService} from '../../../auth/auth-service';
 @Component({
   selector: 'app-teacher-table-page',
   imports: [
-    MatFabButton,
     MatIconModule,
     MatTableStudents
   ],

@@ -1,1 +1,13 @@
 <p>dialog-edit-group works!</p>
+<mat-dialog-content>
+  <p>What's your favorite animal?</p>
+  <mat-form-field>
+    <mat-label>Favorite Animal</mat-label>
+    <input matInput [(ngModel)]="groupName" />
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button matButton (click)="onNoClick()">No Thanks</button>
+  <button matButton [mat-dialog-close]="updateGroup()" cdkFocusInitial>Ok</button>
+</mat-dialog-actions>

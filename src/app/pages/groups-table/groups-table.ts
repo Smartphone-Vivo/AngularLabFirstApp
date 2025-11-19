@@ -11,12 +11,12 @@ import {AuthService} from '../../auth/auth-service';
 import {FormsModule} from '@angular/forms';
 import {MatFormField} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
-
-
+import {MatDialog} from '@angular/material/dialog';
+import {DialogEditGroup} from './dialog-edit-group/dialog-edit-group';
 
 @Component({
   selector: 'app-groups-table',
-  imports: [MatTableModule, MatButton, MatIconModule, MatSidenav, MatSidenavContainer, MatSidenavContent, MatTableStudents, MatFabButton, FormsModule, MatFormField, MatInput],
+  imports: [MatTableModule, MatButton, MatIconModule, MatSidenav, MatSidenavContainer, MatSidenavContent, MatTableStudents, MatFabButton, FormsModule, MatFormField, MatInput, DialogEditGroup ],
   templateUrl: './groups-table.html',
   styleUrl: './groups-table.scss'
 })
@@ -29,6 +29,7 @@ export class GroupsTable implements OnInit{
 
   dataSource = new MatTableDataSource<Group>()
   router = inject(Router)
+  readonly dialog = inject(MatDialog);
 
   newGroup = new Group()
 
@@ -72,8 +73,20 @@ export class GroupsTable implements OnInit{
   }
 
   editGroup(group: Group) {
+    const dialogRef = this.dialog.open(DialogEditGroup, {
+      data: {
+        groupName: group.groupName
+      },
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      if (result !== undefined) {
+        group.groupName = result;
+      }
+    });
   }
+
 
   deleteGroup(group: Group) {
     console.log('deleteGroup', group.id)
