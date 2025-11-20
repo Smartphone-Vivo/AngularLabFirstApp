@@ -52,12 +52,16 @@ export class GroupsTable implements OnInit{
     )
   }
 
+  toStudentsTable(){
+    this.router.navigate(['/admin-table'])
+  }
+
   toGroupsTable(){
     this.router.navigate(['/groups-table'])
   }
 
-  toStudentsTable(){
-    this.router.navigate(['/admin-table'])
+  toTeachersTable(){
+    this.router.navigate(['/teachers-table'])
   }
 
   addNewGroup(){
