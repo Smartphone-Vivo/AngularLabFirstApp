@@ -14,6 +14,7 @@ import {AuthService} from '../../auth/auth-service';
 import {UserInfo} from '../user-info/user-info';
 import {Group} from '../../models/group';
 import {GroupService} from '../../service/group-service';
+import {map} from 'rxjs';
 
 @Component({
   selector: 'mat-table-students',
@@ -101,7 +102,11 @@ export class MatTableStudents implements OnInit, AfterViewInit {
 
     dialogRef.afterClosed().subscribe((result: Student) => {
       if (result.fio != '') {
-        result.groupId = result.group.id
+        // result.groupId = result.group.id
+        result.group.groupName = ''
+
+        result.role = 'STUDENT'
+
         this.baseService.addNewStudent(result).subscribe(() => {
           this.loadTableWithFiltering(this.defaultName);
         })
@@ -121,9 +126,11 @@ export class MatTableStudents implements OnInit, AfterViewInit {
       data: {...student}
     });
 
-
     dialogRef.afterClosed().subscribe((result: Student) => {
+
         this.baseService.editStudent(result).subscribe(() => {
+
+          console.log('11111111111result' ,result)
           this.loadTableWithFiltering(this.defaultName);
         });
 

@@ -1,5 +1,5 @@
 <h1 mat-dialog-title style="text-align: center; margin-top: 30px">
-  {{ data ? 'Edit' : 'Add new user' }}
+  {{ data ? 'Edit' : 'Add new student' }}
 </h1>
 <div mat-dialog-content style="text-align: center; margin-top: 20px">
 
@@ -15,10 +15,10 @@
                [(ngModel)]="editingStudent.password" required>
       </mat-form-field>
     }
-    <mat-form-field class="full-width-input" >
-      <input matInput type="text" placeholder="role"
-             [(ngModel)]="editingStudent.role" required>
-    </mat-form-field>
+<!--    <mat-form-field class="full-width-input" >-->
+<!--      <input matInput type="text" placeholder="role"-->
+<!--             [(ngModel)]="editingStudent.role" required>-->
+<!--    </mat-form-field>-->
   }
 
   @if(editingStudent.role != 'ADMIN'){
@@ -41,14 +41,17 @@
       </mat-select>
     </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>Enable</mat-label>
-      <mat-select [(ngModel)]="editingStudent.enable" required>
-        @for (enbl of enable; track enbl) {
-          <mat-option [value]="enbl">{{enbl}}</mat-option>
-        }
-      </mat-select>
-    </mat-form-field>
+    @if(data){
+      <mat-form-field>
+        <mat-label>Enable</mat-label>
+        <mat-select [(ngModel)]="editingStudent.enable" required>
+          @for (enbl of enable; track enbl) {
+            <mat-option [value]="enbl">{{enbl}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    }
+
   }
   }
 

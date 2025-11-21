@@ -29,6 +29,10 @@ export class BaseService{
     return this.http.get<Teacher[]>(`http://localhost:8080/api/admin/teachers/${pageNumber}/${pageSize}?name=${name}&sort=${sortBy}`)
   }
 
+  deleteTeacher(teacher: Teacher){
+    return this.http.delete<Student>(`http://localhost:8080/api/admin/teachers/${teacher.id}`)
+  }
+
   getCurrentUser(id : string){
     const role = this.authService.getRole().toLowerCase()
     return this.http.get<Student>(`http://localhost:8080/api/${role}/me`)
@@ -47,7 +51,7 @@ export class BaseService{
   }
 
   editStudent(student: Student){
-    console.log('editStudent')
+    console.log('editStudent', student.group)
     const role = this.authService.getRole().toLowerCase()
     return this.http.put<Student>(`http://localhost:8080/api/${role}/students`, student)
   }

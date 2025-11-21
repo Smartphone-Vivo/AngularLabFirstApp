@@ -26,6 +26,10 @@ import {MatDialog} from '@angular/material/dialog';
 import {PageEvent} from '@angular/material/paginator';
 import {DialogEditWrapper} from '../../components/student-editor/dialog-edit-wrapper/dialog-edit-wrapper';
 import {MatChip} from '@angular/material/chips';
+import {Teacher} from '../../models/teacher';
+import {Group} from '../../models/group';
+import {map, pipe, tap} from 'rxjs';
+import {DialogEditTeacher} from './dialog-edit-teacher/dialog-edit-teacher';
 
 @Component({
   selector: 'app-teachers-table',
@@ -77,8 +81,10 @@ export class TeachersTable implements OnInit, AfterViewInit{
   displayedColumns: string[] = ['id', 'username', 'fio', 'group', 'phoneNumber', 'actions'];
   dataSource = new MatTableDataSource<Student>([]);
 
+  readonly dialog = inject(MatDialog);
+
   constructor(
-    public dialog: MatDialog
+    // public dialog: MatDialog
   ) {
   }
 
@@ -119,37 +125,61 @@ export class TeachersTable implements OnInit, AfterViewInit{
       )
   }
 
-  addNewStudent() {
-    const dialogRef = this.dialog.open(DialogEditWrapper, {
-      width: '350px',
-      data: null
-    })
 
-    dialogRef.afterClosed().subscribe((result: Student) => {
-      if (result.fio != '') {
-        result.groupId = result.group.id
-        this.baseService.addNewStudent(result).subscribe(() => {
-          this.loadTableWithFiltering(this.defaultName);
-        })
-      }
+  addNewStudent1(){
+    this.dialog.open(DialogEditTeacher, {
+      width: '250px'
     })
   }
 
-  deleteStudent(student: Student) {
-    this.baseService.deleteStudent(student).subscribe(() => {
+  // openDialog(): void {
+  //   const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
+  //     data: Student}
+  //   });
+  //
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     console.log('The dialog was closed');
+  //     if (result !== undefined) {
+  //       this.animal.set(result);
+  //     }
+  //   });
+  // }
+  // addNewStudent() {
+  //   const dialogRef = this.dialog.open(DialogEditWrapper, {
+  //     width: '350px',
+  //     data: null
+  //   })
+  //
+  //   dialogRef.afterClosed().subscribe((result: Student) => {
+  //     if (result.fio != '') {
+  //       result.groupId = result.group.id
+  //       this.baseService.addNewStudent(result).subscribe(() => {
+  //         this.loadTableWithFiltering(this.defaultName);
+  //       })
+  //     }
+  //   })
+  // }
+
+  deleteTeacher(teacher: Teacher) {
+    this.baseService.deleteTeacher(teacher).subscribe(() => {
       this.loadTableWithFiltering(this.defaultName);
     })
   }
 
+
+
+
   editStudent(student: Student) {
-    const dialogRef = this.dialog.open(DialogEditWrapper, {
+    const dialogRef = this.dialog.open(DialogEditTeacher, {
       width: '350px',
       data: {...student}
     });
 
-
     dialogRef.afterClosed().subscribe((result: Student) => {
+
       this.baseService.editStudent(result).subscribe(() => {
+
+        console.log('11111111111result' ,result)
         this.loadTableWithFiltering(this.defaultName);
       });
 
