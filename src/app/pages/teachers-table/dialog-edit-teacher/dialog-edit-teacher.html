@@ -32,14 +32,6 @@
   </mat-form-field>
 
 
-  <mat-form-field>
-    <mat-label>Group</mat-label>
-    <mat-select [(ngModel)]="editingTeacher.groups" name="group">
-      @for (group of allGroups; track group) {
-        <mat-option [value]="group.id">{{group.groupName}}</mat-option>
-      }
-    </mat-select>
-  </mat-form-field>
 
   @if(data){
     <mat-form-field>
@@ -52,6 +44,38 @@
     </mat-form-field>
   }
 
+  <br>
+  @for(group of editingTeacher.groups; track group){
+    <div>{{group.groupName}}
+      <button (click)="deleteGroup(group)" class="mat-button" matIconButton aria-label="Example icon button with a vertical three dot icon">
+        <mat-icon class="icon-button">delete</mat-icon>
+      </button>
+    </div><br>
+  }
+  <br>
+  @if(data){
+    <div class="add-group-section">
+      <mat-form-field>
+        <mat-label>Add new group</mat-label>
+        <mat-select [(ngModel)]="selectedGroupId" name="group">
+          @for (group of allGroups; track group.id) {
+            <mat-option [value]="group.id">{{ group.groupName }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <button mat-raised-button
+              color="primary"
+              (click)="addGroup()"
+              [disabled]="!selectedGroupId"
+              style="margin-left: 10px;">
+        Add new group
+      </button>
+
+    </div>
+    <br>
+  }
+
 
 
 </div>
@@ -61,3 +85,5 @@
   <button class="right-align" mat-raised-button (click)="onNoClick()">Cancel</button>
 
 </div>
+
+

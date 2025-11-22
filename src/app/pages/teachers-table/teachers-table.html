@@ -59,7 +59,7 @@
         <th mat-header-cell *matHeaderCellDef> actions </th>
         <td mat-cell *matCellDef="let teacher">
           <div class="mat-buttons">
-            <button (click)="editStudent(teacher)" class="mat-button" matFab aria-label="Example icon button with a delete icon">
+            <button (click)="editTeacher(teacher)" class="mat-button" matFab aria-label="Example icon button with a delete icon">
               <mat-icon>edit</mat-icon>
             </button>
             <button (click)="deleteTeacher(teacher)" class="mat-button" matFab aria-label="Example icon button with a delete icon">
@@ -81,8 +81,7 @@
     </mat-paginator>
 
 
-
-<!--    <button matButton="filled" (click)="addNewStudent()">Add new teacher</button>-->
+    <button matButton="filled" (click)="addNewTeacher()">Add new teacher</button>
 
 
   </mat-sidenav-content>

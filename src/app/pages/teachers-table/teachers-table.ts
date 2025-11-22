@@ -74,6 +74,7 @@ export class TeachersTable implements OnInit, AfterViewInit{
   baseService = inject(BaseService)
   groupService = inject(GroupService)
 
+
   allGroups = this.groupService.getAllGroups()
 
   role = inject(AuthService).getRole()
@@ -125,40 +126,21 @@ export class TeachersTable implements OnInit, AfterViewInit{
       )
   }
 
+  addNewTeacher() {
+    const dialogRef = this.dialog.open(DialogEditTeacher, {
+      width: '350px',
+      data: null
+    })
 
-  addNewStudent1(){
-    this.dialog.open(DialogEditTeacher, {
-      width: '250px'
+    dialogRef.afterClosed().subscribe((result: Teacher) => {
+      if (result.fio != '') {
+        result.role = 'TEACHER'
+        this.baseService.addNewTeacher(result).subscribe(() => {
+          this.loadTableWithFiltering(this.defaultName);
+        })
+      }
     })
   }
-
-  // openDialog(): void {
-  //   const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
-  //     data: Student}
-  //   });
-  //
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     console.log('The dialog was closed');
-  //     if (result !== undefined) {
-  //       this.animal.set(result);
-  //     }
-  //   });
-  // }
-  // addNewStudent() {
-  //   const dialogRef = this.dialog.open(DialogEditWrapper, {
-  //     width: '350px',
-  //     data: null
-  //   })
-  //
-  //   dialogRef.afterClosed().subscribe((result: Student) => {
-  //     if (result.fio != '') {
-  //       result.groupId = result.group.id
-  //       this.baseService.addNewStudent(result).subscribe(() => {
-  //         this.loadTableWithFiltering(this.defaultName);
-  //       })
-  //     }
-  //   })
-  // }
 
   deleteTeacher(teacher: Teacher) {
     this.baseService.deleteTeacher(teacher).subscribe(() => {
@@ -166,18 +148,15 @@ export class TeachersTable implements OnInit, AfterViewInit{
     })
   }
 
-
-
-
-  editStudent(student: Student) {
+  editTeacher(teacher: Teacher) {
     const dialogRef = this.dialog.open(DialogEditTeacher, {
       width: '350px',
-      data: {...student}
+      data: {...teacher}
     });
 
-    dialogRef.afterClosed().subscribe((result: Student) => {
+    dialogRef.afterClosed().subscribe((result: Teacher) => {
 
-      this.baseService.editStudent(result).subscribe(() => {
+      this.baseService.editTeacher(result).subscribe(() => {
 
         console.log('11111111111result' ,result)
         this.loadTableWithFiltering(this.defaultName);

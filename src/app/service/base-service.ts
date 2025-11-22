@@ -44,10 +44,18 @@ export class BaseService{
     return this.http.post<Student>('http://localhost:8080/api/auth/register', student);
   }
 
+  addNewTeacher(teacher: Teacher){
+    return this.http.post<Teacher>('http://localhost:8080/api/admin/teacher', teacher);
+  }
+
   deleteStudent(student: Student): Observable<Student> {
     const role = this.authService.getRole().toLowerCase()
     console.log('deleteStudent:', student.id, student.fio);
     return this.http.delete<Student>(`http://localhost:8080/api/${role}/students/${student.id}`)
+  }
+
+  editTeacher(teacher: Teacher){
+    return this.http.put<Teacher>(`http://localhost:8080/api/teacher/me`, teacher)
   }
 
   editStudent(student: Student){

@@ -10,13 +10,14 @@ import {Student} from '../../../models/student';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatFormField} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
-import {MatButton} from '@angular/material/button';
+import {MatButton, MatFabButton, MatIconButton} from '@angular/material/button';
 import {BaseService} from '../../../service/base-service';
 import {Group} from '../../../models/group';
 import {MatSelectModule} from '@angular/material/select';
 import {AuthService} from '../../../auth/auth-service';
 import {GroupService} from '../../../service/group-service';
 import {Teacher} from '../../../models/teacher';
+import {MatIconModule} from '@angular/material/icon';
 
 @Component({
   selector: 'dialog-edit-teacher',
@@ -32,11 +33,16 @@ import {Teacher} from '../../../models/teacher';
     MatDialogContent,
     MatDialogTitle,
     MatSelectModule,
+    MatFabButton,
+    MatIconModule,
+    MatIconButton,
   ],
 
 })
 export class DialogEditTeacher implements OnInit{
   editingTeacher: Teacher
+
+  selectedGroupId: number | null = null;
 
   groupService = inject(GroupService)
 
@@ -71,5 +77,20 @@ export class DialogEditTeacher implements OnInit{
       .subscribe(val =>
         this.allGroups = val
       )
+  }
+
+  deleteGroup(group: Group) {
+    this.editingTeacher.groups = this.editingTeacher.groups.filter(g => g.id !== group.id);
+    }
+
+
+  addGroup() {
+    if (this.selectedGroupId) {
+      const selectedGroup = this.allGroups.find(g => g.id === this.selectedGroupId);
+      if (selectedGroup && !this.editingTeacher.groups.some(g => g.id === selectedGroup.id)) {
+        this.editingTeacher.groups.push(selectedGroup);
+        this.selectedGroupId = null;
+      }
+    }
   }
 }
