@@ -12,7 +12,6 @@ import {
   MatHeaderRowDef,
   MatRow, MatRowDef, MatTable, MatTableDataSource
 } from '@angular/material/table';
-import {MatInput} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {AuthService} from '../../auth/auth-service';
@@ -24,11 +23,7 @@ import {GroupService} from '../../service/group-service';
 import {Student} from '../../models/student';
 import {MatDialog} from '@angular/material/dialog';
 import {PageEvent} from '@angular/material/paginator';
-import {DialogEditWrapper} from '../../components/student-editor/dialog-edit-wrapper/dialog-edit-wrapper';
-import {MatChip} from '@angular/material/chips';
 import {Teacher} from '../../models/teacher';
-import {Group} from '../../models/group';
-import {map, pipe, tap} from 'rxjs';
 import {DialogEditTeacher} from './dialog-edit-teacher/dialog-edit-teacher';
 
 @Component({
@@ -47,7 +42,6 @@ import {DialogEditTeacher} from './dialog-edit-teacher/dialog-edit-teacher';
     MatHeaderRow,
     MatHeaderRowDef,
     MatIconModule,
-    MatInput,
     MatRow,
     MatRowDef,
     MatSidenavContent,
@@ -55,8 +49,7 @@ import {DialogEditTeacher} from './dialog-edit-teacher/dialog-edit-teacher';
     MatPaginator,
     MatSort,
     MatSortHeader,
-    MatHeaderCellDef,
-    MatChip
+    MatHeaderCellDef
   ],
   templateUrl: './teachers-table.html',
   styleUrl: './teachers-table.scss'

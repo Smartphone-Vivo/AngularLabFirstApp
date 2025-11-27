@@ -33,7 +33,6 @@ import {MatIconModule} from '@angular/material/icon';
     MatDialogContent,
     MatDialogTitle,
     MatSelectModule,
-    MatFabButton,
     MatIconModule,
     MatIconButton,
   ],
@@ -52,10 +51,8 @@ export class DialogEditTeacher implements OnInit{
 
   constructor(public dialogRef: MatDialogRef<DialogEditTeacher>,
               @Inject(MAT_DIALOG_DATA) public data: Teacher)
-
   {
     if (data) {
-
       this.editingTeacher = { ...data };
       console.log('editStudent111', this.editingTeacher)
     } else {
@@ -82,7 +79,6 @@ export class DialogEditTeacher implements OnInit{
   deleteGroup(group: Group) {
     this.editingTeacher.groups = this.editingTeacher.groups.filter(g => g.id !== group.id);
     }
-
 
   addGroup() {
     if (this.selectedGroupId) {

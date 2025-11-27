@@ -17,7 +17,7 @@ import {GroupService} from '../../service/group-service';
 
 @Component({
   selector: 'app-groups-table',
-  imports: [MatTableModule, MatButton, MatIconModule, MatSidenav, MatSidenavContainer, MatSidenavContent, MatTableStudents, MatFabButton, FormsModule, MatFormField, MatInput, DialogEditGroup ],
+  imports: [MatTableModule, MatButton, MatIconModule, MatSidenav, MatSidenavContainer, MatSidenavContent, MatFabButton, FormsModule, MatFormField, MatInput],
   templateUrl: './groups-table.html',
   styleUrl: './groups-table.scss'
 })
@@ -85,15 +85,20 @@ export class GroupsTable implements OnInit{
 
   editGroup(group: Group) {
     const dialogRef = this.dialog.open(DialogEditGroup, {
-      data: {
-        groupName: group.groupName
-      },
+      data: group
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      console.log(result,'DialogEditTeacher');
       if (result !== undefined) {
         group.groupName = result;
+        this.groupService.updateGroup(result).subscribe({
+          next:()=>{
+            this.loadGroups()
+          }
+          }
+
+        )
       }
     });
   }
