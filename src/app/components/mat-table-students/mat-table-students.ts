@@ -102,7 +102,7 @@ export class MatTableStudents implements OnInit, AfterViewInit {
 
     dialogRef.afterClosed().subscribe((result: Student) => {
       if (result.fio != '') {
-        // result.groupId = result.group.id
+        result.groupId = result.group.id
         result.group.groupName = ''
 
         result.role = 'STUDENT'

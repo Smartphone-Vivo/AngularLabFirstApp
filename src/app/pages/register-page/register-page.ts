@@ -10,6 +10,8 @@ import {MatOption} from '@angular/material/autocomplete';
 import {MatSelect} from '@angular/material/select';
 import {BaseService} from '../../service/base-service';
 import {GroupService} from '../../service/group-service';
+import {Group} from '../../models/group';
+import {tap} from 'rxjs';
 
 @Component({
   selector: 'app-register-page',
@@ -33,7 +35,7 @@ export class RegisterPage implements OnInit{
   baseService = inject(BaseService)
   groupService = inject(GroupService)
 
-  allGroups = this.groupService.allGroups
+  allGroups: Group[] = []
 
   hide = signal(true);
 
@@ -47,20 +49,30 @@ export class RegisterPage implements OnInit{
       username: new FormControl(null, Validators.required),
       fio: new FormControl(null, Validators.required),
       phoneNumber: new FormControl(null, Validators.required),
-      groupId: new FormControl(null, Validators.required),
+      groupId: new FormControl(null),
       password: new FormControl(null, Validators.required),
-
+      group: new FormControl(),
+      role: new FormControl(),
+      enable: new FormControl(),
     }
   )
 
   ngOnInit() {
-    this.groupService.getAllGroups()
+    this.groupService.getAllGroups().subscribe(
+      value => {
+        this.allGroups = value
+        console.log('onInit groups', this.allGroups)
+      }
+    )
     console.log(this.allGroups, 'все группы')
   }
 
   onSubmit(event: Event) {
     console.log(this.form.value, 'группы')
-    event.preventDefault()
+    // event.preventDefault()
+
+    this.form.value.enable = true
+    this.form.value.role = 'STUDENT'
 
     if (this.form.valid) {
       this.authService.register(this.form.value as any)
