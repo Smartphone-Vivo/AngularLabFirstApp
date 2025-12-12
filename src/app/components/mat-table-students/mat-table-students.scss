@@ -4,7 +4,6 @@ table {
 
 :host{
   display: block;
-  padding: 0 24px;
 }
 
 .mat-button{
@@ -46,7 +45,7 @@ table {
 .search-button{
   height: 40px;
   width: 40px;
-  margin-left: 20px;
+
 }
 
 .header-logout{
@@ -58,6 +57,6 @@ table {
   margin-top: 20px;
   height: 40px;
   width: 40px;
-  color-scheme: primary;
+  margin-right: 10px;
 }
 

@@ -18,6 +18,4 @@ export const routes: Routes = [
   {path:'', component: LoginPage},
   {path:'register', component: RegisterPage},
 
-
-
 ];

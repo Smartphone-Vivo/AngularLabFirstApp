@@ -25,7 +25,6 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 })
 export class AdminTablePage {
 
-  cookieService = inject(CookieService)
   router = inject(Router)
   authService = inject(AuthService)
 
