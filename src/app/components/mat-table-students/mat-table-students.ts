@@ -35,6 +35,9 @@ export class MatTableStudents implements OnInit, AfterViewInit {
   allGroups = this.groupService.getAllGroups()
   authService = inject(AuthService)
 
+  groups: Group[] = [];
+  groupMap: Map<number | null, string> = new Map();
+
   role = inject(AuthService).getRole()
 
   displayedColumns: string[] = [];
@@ -48,6 +51,26 @@ export class MatTableStudents implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   @ViewChild(MatSort) sort!: MatSort;
+
+  loadGroups() {
+    this.groupService.getAllGroups().subscribe({
+      next: (groups) => {
+        this.groups = groups;
+        this.groupMap = new Map(groups.map(group => [group.id, group.groupName]));
+        console.log('Group map создан:', this.groupMap);
+      },
+      error: (error) => {
+        console.error('Ошибка загрузки групп:', error);
+        this.groups = [];
+        this.groupMap = new Map();
+      }
+    });
+  }
+
+  // Метод для получения названия группы по ID
+  getGroupName(groupId: number): string {
+    return this.groupMap.get(groupId) || `ID: ${groupId}`;
+  }
 
   logout(){
     this.authService.logout()
@@ -66,7 +89,7 @@ export class MatTableStudents implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.loadTableWithFiltering(this.defaultName);
-
+    this.loadGroups();
     console.log('getAllGroups', this.allGroups)
   }
 

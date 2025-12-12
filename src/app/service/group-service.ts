@@ -15,7 +15,7 @@ export class GroupService {
   private springUrl = 'http://localhost:8080/api/base/students'
 
   getAllGroups(){
-    return this.http.get<Group[]>(`http://localhost:8080/api/auth/group`)
+    return this.http.get<Group[]>(`http://localhost:8080/api/group/allgroups`)
   }
 
   addNewGroup(group: Group){
