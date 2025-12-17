@@ -11,7 +11,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatFormField} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
 import {MatButton} from '@angular/material/button';
-import {BaseService} from '../../../service/base-service';
 import {Group} from '../../../models/group';
 import {MatSelectModule} from '@angular/material/select';
 import {AuthService} from '../../../auth/auth-service';
@@ -41,36 +40,42 @@ export class DialogEditWrapper implements OnInit{
 
   groupService = inject(GroupService)
 
-  allGroups: Group[] = []
   role = inject(AuthService).getRole()
   enable = ['true', 'false']
+
+  groups: Group[] = [];
 
   constructor(public dialogRef: MatDialogRef<DialogEditWrapper>,
     @Inject(MAT_DIALOG_DATA) public data: Student)
 
   {
     if (data) {
-
       this.editingStudent = { ...data };
       console.log('editStudent111', this.editingStudent)
     } else {
-      this.editingStudent = new Student(); // для Add
+      this.editingStudent = new Student();
     }
   }
 
   ngOnInit() {
-    this.getAllGroups()
-    console.log('группы',this.getAllGroups())
+    this.loadGroups();
+    console.log('getAllGroups', this.groups)
   }
 
   onNoClick(){
     this.dialogRef.close()
   }
 
-  getAllGroups(){
-    return this.groupService.getAllGroups()
-      .subscribe(val =>
-        this.allGroups = val
-      )
+  loadGroups() {
+    this.groupService.getAllGroups().subscribe({
+      next: (groups) => {
+        this.groups = groups;
+        console.log('Group map создан:', this.groups);
+      },
+      error: (error) => {
+        console.error('Ошибка загрузки групп:', error);
+        this.groups = [];
+      }
+    });
   }
 }

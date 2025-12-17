@@ -14,7 +14,6 @@ import {AuthService} from '../../auth/auth-service';
 import {UserInfo} from '../user-info/user-info';
 import {Group} from '../../models/group';
 import {GroupService} from '../../service/group-service';
-import {map} from 'rxjs';
 
 @Component({
   selector: 'mat-table-students',
