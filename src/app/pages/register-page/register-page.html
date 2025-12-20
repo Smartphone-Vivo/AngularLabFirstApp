@@ -6,6 +6,10 @@
 
   <h1 class="register-header">Registration</h1>
 
+  @if(error()){
+    <div class="error">* This is login already use</div>
+  }
+
   <mat-form-field>
     <mat-label class="input-label">Username</mat-label>
     <input
@@ -36,12 +40,8 @@
     </mat-select>
   </mat-form-field>
 
-<!--  <mat-form-field>-->
-<!--    <mat-label class="input-label">Group</mat-label>-->
-<!--    <input-->
-<!--      formControlName="group"-->
-<!--      matInput>-->
-<!--  </mat-form-field>-->
+
+
   <br>
   <mat-form-field>
     <mat-label class="input-label">Enter your password</mat-label>

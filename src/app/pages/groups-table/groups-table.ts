@@ -23,9 +23,7 @@ import {GroupService} from '../../service/group-service';
 })
 export class GroupsTable implements OnInit{
 
-  baseService = inject(BaseService)
   groupService = inject(GroupService)
-  allGroups = this.groupService.getAllGroups()
   displayedColumns: string[] = ['id', 'groupName', 'actions'];
   authService = inject(AuthService)
 
@@ -76,11 +74,8 @@ export class GroupsTable implements OnInit{
           this.loadGroups()
       }
       }
-
-
       )
     }
-
   }
 
   editGroup(group: Group) {
@@ -114,5 +109,4 @@ export class GroupsTable implements OnInit{
         })
     }
   }
-
 }

@@ -1,13 +1,10 @@
-import {inject, Injectable, OnInit} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {tap} from 'rxjs';
 import {TokenResponse} from './auth.interface';
 import {CookieService} from 'ngx-cookie-service';
 import {jwtDecode} from 'jwt-decode';
 import {Router} from '@angular/router';
-import {FormControl, Validators} from '@angular/forms';
-import {Group} from '../models/group';
-import {BaseService} from '../service/base-service';
 
 @Injectable({
   providedIn: 'root'

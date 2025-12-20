@@ -36,7 +36,6 @@ import {MatIconModule} from '@angular/material/icon';
 export class DialogEditGroup{
   editingGroup: Group
 
-  allGroups: Group[] = []
   role = inject(AuthService).getRole()
 
   constructor(public dialogRef: MatDialogRef<DialogEditGroup>,

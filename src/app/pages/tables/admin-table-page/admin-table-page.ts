@@ -32,8 +32,6 @@ export class AdminTablePage {
     this.authService.logout()
   }
 
-
-
   toGroupsTable(){
     this.router.navigate(['/groups-table'])
   }

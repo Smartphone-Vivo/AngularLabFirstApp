@@ -10,7 +10,6 @@
   width: 300px;
   height: 650px;
   flex-direction: column;
-  padding-top: 30px;
   padding-left: 100px;
   padding-right: 100px;
   box-shadow: 0px 3px 3px #ececec;
@@ -33,6 +32,11 @@
   flex-direction: column;
   justify-content: space-between;
   height: 150px;
+  gap: 20px;
 
 }
 
+.error{
+  color: red;
+  margin-bottom: 10px;
+}

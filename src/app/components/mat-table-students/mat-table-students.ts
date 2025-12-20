@@ -56,10 +56,8 @@ export class MatTableStudents implements OnInit, AfterViewInit {
       next: (groups) => {
         this.groups = groups;
         this.groupMap = new Map(groups.map(group => [group.id, group.groupName]));
-        console.log('Group map создан:', this.groupMap);
       },
       error: (error) => {
-        console.error('Ошибка загрузки групп:', error);
         this.groups = [];
         this.groupMap = new Map();
       }
@@ -89,7 +87,6 @@ export class MatTableStudents implements OnInit, AfterViewInit {
   ngOnInit() {
     this.loadTableWithFiltering(this.defaultName);
     this.loadGroups();
-    console.log('getAllGroups', this.allGroups)
   }
 
   checkRole(){
@@ -124,11 +121,7 @@ export class MatTableStudents implements OnInit, AfterViewInit {
 
     dialogRef.afterClosed().subscribe((result: Student) => {
       if (result.fio != '') {
-        result.groupId = result.group.id
-        result.group.groupName = ''
-
         result.role = 'STUDENT'
-
         this.baseService.addNewStudent(result).subscribe(() => {
           this.loadTableWithFiltering(this.defaultName);
         })

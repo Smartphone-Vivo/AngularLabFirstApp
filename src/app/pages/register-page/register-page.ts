@@ -11,7 +11,7 @@ import {MatSelect} from '@angular/material/select';
 import {BaseService} from '../../service/base-service';
 import {GroupService} from '../../service/group-service';
 import {Group} from '../../models/group';
-import {tap} from 'rxjs';
+import {catchError, tap, throwError} from 'rxjs';
 
 @Component({
   selector: 'app-register-page',
@@ -32,12 +32,13 @@ export class RegisterPage implements OnInit{
 
   router= inject(Router)
   authService = inject(AuthService)
-  baseService = inject(BaseService)
   groupService = inject(GroupService)
 
   allGroups: Group[] = []
 
   hide = signal(true);
+
+  error= signal(false)
 
   clickEvent(event: MouseEvent) {
     this.hide.set(!this.hide());
@@ -69,13 +70,18 @@ export class RegisterPage implements OnInit{
 
   onSubmit(event: Event) {
     console.log(this.form.value, 'группы')
-    // event.preventDefault()
 
     this.form.value.enable = true
     this.form.value.role = 'STUDENT'
 
     if (this.form.valid) {
-      this.authService.register(this.form.value as any)
+      this.authService.register(this.form.value as any).pipe(
+        catchError(error => {
+          console.log(error)
+          this.error.set(true)
+          return throwError(() => new Error('Not unique username'))
+        })
+      )
         .subscribe(response => {
             this.router.navigate(['/login'])
             console.log(response)
@@ -90,11 +96,6 @@ export class RegisterPage implements OnInit{
     this.router.navigate(['/login'])
   }
 
-  // foods: string[] = [
-  //   {value: 'steak-0', viewValue: 'Steak'},
-  //   {value: 'pizza-1', viewValue: 'Pizza'},
-  //   {value: 'tacos-2', viewValue: 'Tacos'},
-  // ];
 
 
 

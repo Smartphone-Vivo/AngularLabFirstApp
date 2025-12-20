@@ -10,8 +10,6 @@ export class GroupService {
   http = inject(HttpClient)
   authService = inject(AuthService)
 
-  allGroups: Group[] = []
-
   private springUrl = 'http://localhost:8080/api/base/students'
 
   getAllGroups(){

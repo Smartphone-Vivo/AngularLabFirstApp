@@ -3,7 +3,6 @@ import {BaseService} from '../../service/base-service';
 import {AuthService} from '../../auth/auth-service';
 import {Student} from '../../models/student';
 import {MatIconModule} from "@angular/material/icon";
-import {MatTableStudents} from "../mat-table-students/mat-table-students";
 import {DialogEditWrapper} from "../student-editor/dialog-edit-wrapper/dialog-edit-wrapper";
 import {MatDialog} from "@angular/material/dialog";
 
@@ -21,7 +20,6 @@ export class UserInfo implements OnInit{
   authService = inject(AuthService)
     userId = this.authService.getMe()
     currentUser: Student = {} as Student
-    matTableStudents = inject(MatTableStudents)
 
     constructor(
         public dialog: MatDialog
@@ -31,12 +29,6 @@ export class UserInfo implements OnInit{
     ngOnInit() {
         this.loadData()
     }
-    // editStudent(student: Student) {
-    //   console.log('че отправляем в эдит', student)
-    //     this.matTableStudents.editStudent(student)
-    //     this.loadData()
-    // }
-
 
     editStudent(student: Student) {
         const dialogRef = this.dialog.open(DialogEditWrapper, {
@@ -52,8 +44,6 @@ export class UserInfo implements OnInit{
             });
         });
     }
-
-
     loadData(){
         this.baseService.getCurrentUser(this.userId).subscribe(user => {
             this.currentUser = user
